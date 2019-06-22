@@ -11,7 +11,7 @@ int main() {
     srand(time(0));
 
     float dt;
-    int countIce = 4;
+    int countIce = 80;
     RenderWindow app(VideoMode(1240, 720), "Ackanoid!");
 
     GameField gameField(app);

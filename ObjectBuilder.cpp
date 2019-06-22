@@ -11,7 +11,7 @@ Object* ObjectBuilder::createBackground() {
     background->image.loadFromFile("textures/char_sex.png");
     background->texture.loadFromImage(background->image);
     background->sprite.setTexture(background->texture);
-    background->sprite.setScale(0.8,0.8);
+    background->sprite.setScale(0.6,0.7);
     return background;
 }
 

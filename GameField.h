@@ -13,7 +13,9 @@ using namespace sf;
 class GameField {
     RenderWindow& app;
     Object* background;
-    Object* ice[256];
+    int _countIce;
+    Object* ice[100][100];
+
 
 public:
     //RenderWindow* app;
