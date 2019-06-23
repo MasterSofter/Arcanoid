@@ -1,11 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Audio.hpp>
-#include "Object.h"
+#include "Entity.h"
 #include "ObjectBuilder.h"
 #include "GameField.h"
 #include <iostream>
 #include <time.h>
+#include <SFML/Window/Mouse.hpp>
+
 using namespace sf;
 int main() {
     srand(time(0));
@@ -16,6 +18,7 @@ int main() {
 
     GameField gameField(app);
     gameField.createGameField(countIce);
+    Mouse mouse;
 
     while (app.isOpen())
     {
@@ -26,9 +29,7 @@ int main() {
                 app.close();
         }
 
-
-
-        gameField.update(dt);
+        gameField.update(dt, mouse.getPosition(app), mouse.isButtonPressed(Mouse::Button::Left));
         gameField.draw();
 
     }

@@ -53,9 +53,10 @@ link_directories(${SFML_PATH}/lib)
 
 # Установка переменной со списком исходников
 set (SRC
-		Object.cpp
+        Entity.cpp
 		ObjectBuilder.cpp
 		GameField.cpp
+		GameBuilder.cpp
 		main.cpp)
 
 

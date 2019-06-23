@@ -5,12 +5,13 @@
 #ifndef ARCANOID_OBJECTBUILDER_H
 #define ARCANOID_OBJECTBUILDER_H
 
-#include "Object.h"
+#include "Entity.h"
 class ObjectBuilder{
 public:
-    Object* createBackground();
-    Object* createIce();
-    Object* createBall();
-    Object* createPlatform();
+    Entity* createBackground();
+    Entity* createIce();
+    Entity* createBall();
+    Entity* createPlayer();
+    Entity* createRoad();
 };
 #endif //ARCANOID_OBJECTBUILDER_H
