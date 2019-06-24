@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics/Rect.hpp>
 
 using namespace sf;
 
@@ -27,6 +28,7 @@ public:
     void setPosition(Vector2f pos);
     Vector2f getPosition() const;
     Vector2f size() const;
+    FloatRect getRect() const;
     void setSize(Vector2f size);
     void move(Vector2f offset);
     void setScale(Vector2f scale);

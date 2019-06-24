@@ -62,3 +62,8 @@ void Entity::draw(RenderWindow &app) {
 void Entity::setOrigin(Vector2f pos) {
     _sprite.setOrigin(pos);
 }
+
+FloatRect Entity::getRect() const
+{
+    return FloatRect(_pos, _size);
+}
