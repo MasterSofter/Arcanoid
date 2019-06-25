@@ -19,11 +19,11 @@ class GameField {
     Entity* road;
     Entity* player;
     Entity* ball;
-    float dx = 1.9, dy = 0;
+    float dx = 2, dy = 0;
 
     bool gameStarted = false;
     Vector2i mousepos;
-
+    Vector2u _size = app.getSize();
     list<Entity*> ice;
 
 public:

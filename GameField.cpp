@@ -51,7 +51,7 @@ void GameField::createGameField(int countIce) {
 
 void GameField::update(float dt, Vector2i pos, bool pressed) {
 
-    Vector2u size = app.getSize();
+    app.setFramerateLimit(200);
     player->move(Vector2f(player->getPosition().x, pos.y) - player->getPosition());
 
 
@@ -68,19 +68,17 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
 
 
 
-       if(ball->getPosition().x < 0 || ball->getPosition().x + ball->size().x > size.x)
-           dx = -dx;
-       if(ball->getPosition().y < 0 || ball->getPosition().y + ball->size().y > size.y)
-           dy = -dy;
+       if(ball->getPosition().x < 0 || ball->getPosition().x + ball->size().x > _size.x)
+       { dx = -dx; dy =- rand()%4+2; if(dy < 2){dy = 2;}}
+       if(ball->getPosition().y < 0 || ball->getPosition().y + ball->size().y > _size.y)
+       { dy = -dy;}
 
         ball->move(Vector2f(dx, 0));
         for (list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
             if ( ball->getRect().intersects((*it)->getRect()))
-            {(*it)->setPosition(Vector2f(-10000,0)); dx=-dx; dy =- rand()%5+2;}
+            {(*it)->setPosition(Vector2f(-10000,0)); dx=-dx; dy =- rand()%4+2; if(dy < 2){dy = 2;}}
 
-        //if((ball->getPosition().x < player->getPosition().x + player->size().x/2) &&
-         //       ((ball->getPosition().y <= player->getPosition().y - player->size().y/2) ||
-       //         (ball->getPosition().y + ball->size().y >= player->getPosition().y + player->size().y/2)))
+
        player->setPosition(Vector2f(player->getPosition().x - player->size().x/2,player->getPosition().y - player->size().y/2));
 
        if(ball->getRect().intersects(player->getRect()))
@@ -96,7 +94,7 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
         ball->move(Vector2f(0, dy));
         for (list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
             if ( ball->getRect().intersects((*it)->getRect()))
-            {(*it)->setPosition(Vector2f(-10000,0)); dy=-dy;}
+            {(*it)->setPosition(Vector2f(-10000,0)); dy=-dy; dx =- rand()%4+2; if(dx < 2) {dx = 2;}}
 
 
         if(ball->getRect().intersects(player->getRect()))
@@ -116,7 +114,6 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
         }
 
         player->setPosition(Vector2f(player->getPosition().x + player->size().x/2,player->getPosition().y + player->size().y/2));
-
 
 
     }
