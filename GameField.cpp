@@ -105,13 +105,16 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
         }
 
 
-        if(player->getRect().contains(ball->getPosition().x, ball->getPosition().y) || player->getRect().contains(ball->getPosition().x, ball->getPosition().y + ball->size().y))
+        if(player->getRect().contains(ball->getPosition().x, ball->getPosition().y))
         {
-            if(dy < 0.f)
             ball->setPosition(Vector2f(ball->getPosition().x, player->getPosition().y + player->size().y));
-            else
-                ball->setPosition(Vector2f(ball->getPosition().x, player->getPosition().y));
         }
+
+        if(player->getRect().contains(ball->getPosition().x, ball->getPosition().y + ball->size().y))
+        {
+            ball->setPosition(Vector2f(ball->getPosition().x, player->getPosition().y));
+        }
+
         player->setPosition(Vector2f(player->getPosition().x + player->size().x/2,player->getPosition().y + player->size().y/2));
 
 
