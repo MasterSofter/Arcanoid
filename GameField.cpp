@@ -21,6 +21,12 @@ GameField::GameField(RenderWindow& _app)
 
 }
 
+
+//bool contain(Vector2f object, Vector2f intersection)
+//{
+
+//}
+
 void GameField::createGameField(int countIce) {
 
     randomGanerate();
@@ -72,10 +78,41 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
             if ( ball->getRect().intersects((*it)->getRect()))
             {(*it)->setPosition(Vector2f(-10000,0)); dx=-dx; dy =- rand()%5+2;}
 
+        //if((ball->getPosition().x < player->getPosition().x + player->size().x/2) &&
+         //       ((ball->getPosition().y <= player->getPosition().y - player->size().y/2) ||
+       //         (ball->getPosition().y + ball->size().y >= player->getPosition().y + player->size().y/2)))
+       player->setPosition(Vector2f(player->getPosition().x - player->size().x/2,player->getPosition().y - player->size().y/2));
+
+       if(ball->getRect().intersects(player->getRect()))
+        {
+            dx = -dx;
+        }
+
+        if(player->getRect().contains(ball->getPosition().x, ball->getPosition().y) || player->getRect().contains(ball->getPosition().x, ball->getPosition().y + ball->size().y))
+        {
+            ball->setPosition(Vector2f(player->getPosition().x + player->size().x, ball->getPosition().y));
+        }
+
         ball->move(Vector2f(0, dy));
         for (list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
             if ( ball->getRect().intersects((*it)->getRect()))
             {(*it)->setPosition(Vector2f(-10000,0)); dy=-dy;}
+
+
+        if(ball->getRect().intersects(player->getRect()))
+        {
+            dy = -dy;
+        }
+
+
+        if(player->getRect().contains(ball->getPosition().x, ball->getPosition().y) || player->getRect().contains(ball->getPosition().x, ball->getPosition().y + ball->size().y))
+        {
+            if(dy < 0.f)
+            ball->setPosition(Vector2f(ball->getPosition().x, player->getPosition().y + player->size().y));
+            else
+                ball->setPosition(Vector2f(ball->getPosition().x, player->getPosition().y));
+        }
+        player->setPosition(Vector2f(player->getPosition().x + player->size().x/2,player->getPosition().y + player->size().y/2));
 
 
 
