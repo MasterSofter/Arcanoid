@@ -30,3 +30,9 @@ Entity* ObjectBuilder::createPlayer() {
     return player;
 
 }
+
+Entity* ObjectBuilder::createBall() {
+    Entity* ball = new Entity("textures/ball.png");
+    ball->setScale(Vector2f(0.68, 0.68));
+    return ball;
+}

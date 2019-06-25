@@ -67,3 +67,7 @@ FloatRect Entity::getRect() const
 {
     return FloatRect(_pos, _size);
 }
+
+Sprite* Entity::getSprite() {
+    return &_sprite;
+}

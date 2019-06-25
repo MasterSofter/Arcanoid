@@ -18,6 +18,8 @@ class GameField {
     Entity* background;
     Entity* road;
     Entity* player;
+    Entity* ball;
+    float dx = 1.9, dy = 0;
 
     bool gameStarted = false;
     Vector2i mousepos;

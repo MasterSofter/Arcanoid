@@ -28,6 +28,8 @@ public:
     void setPosition(Vector2f pos);
     Vector2f getPosition() const;
     Vector2f size() const;
+
+    Sprite* getSprite();
     FloatRect getRect() const;
     void setSize(Vector2f size);
     void move(Vector2f offset);
