@@ -69,9 +69,18 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
 
 
        if(ball->getPosition().x < 0 || ball->getPosition().x + ball->size().x > _size.x)
-       { dx = -dx; dy =- rand()%4+2; if(dy < 2){dy = 2;}}
-       if(ball->getPosition().y < 0 || ball->getPosition().y + ball->size().y > _size.y)
-       { dy = -dy;}
+       {
+           dx = -dx; dy =- rand()%6+2;
+           if((dy > 0)&& (dy < 2))
+               dy = 2;
+           else if(((dy < 0) && (dy < -2)))
+               dy = -2;
+
+       }
+       else if(ball->getPosition().y < 0 || ball->getPosition().y + ball->size().y > _size.y)
+       {
+           dy = -dy;
+       }
 
         ball->move(Vector2f(dx, 0));
         for (list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
