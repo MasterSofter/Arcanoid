@@ -12,8 +12,19 @@ Entity* ObjectBuilder::createBackground() {
     return background;
 }
 
-Entity* ObjectBuilder::createIce() {
-    Entity* ice = new Entity("textures/ice_01.png");
+Entity* ObjectBuilder::createIce(int id) {
+    Entity* ice;
+    if(id == 0)
+    {ice = new Entity("textures/ice_01.png");}
+    else if(id == 1)
+    {ice = new Entity("textures/ice_02.png");}
+    else if(id == 2)
+    {ice = new Entity("textures/ice_03.png");}
+    else if(id == 3)
+    { ice = new Entity("textures/ice_04.png");}
+    else if(id == 4)
+    {ice = new Entity("textures/ice_05.png");}
+
     return ice;
 }
 
@@ -35,4 +46,13 @@ Entity* ObjectBuilder::createBall() {
     Entity* ball = new Entity("textures/ball.png");
     ball->setScale(Vector2f(0.68, 0.68));
     return ball;
+}
+
+Entity* ObjectBuilder::CreateObject(int id, Vector2f pos, Vector2f size) {
+    Entity* ent;
+    ObjectBuilder objectBuilder;
+    ent = objectBuilder.createIce(id);
+    ent->setSize(size);
+    ent->setPosition(pos);
+    return ent;
 }

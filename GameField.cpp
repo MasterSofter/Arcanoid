@@ -50,7 +50,8 @@ void GameField::createGameField(int countIce) {
 }
 
 void GameField::update(float dt, Vector2i pos, bool pressed) {
-
+    bool attack = false;
+    ObjectBuilder objectBuilder;
     app.setFramerateLimit(200);
     player->move(Vector2f(player->getPosition().x, pos.y) - player->getPosition());
 
@@ -80,8 +81,31 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
 
         ball->move(Vector2f(dx, 0));
         for (list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
-            if ( ball->getRect().intersects((*it)->getRect()))
-            {(*it)->setPosition(Vector2f(-10000,0)); dx=-dx; dy = rand()%3+1; if(dy < 2){dy = 2;}}
+            if ( ball->getRect().intersects((*it)->getRect()) && attack == false)
+            {
+                attack = true;
+                if((*it)->getHealth() < 2)
+                {(*it)->setHealth((*it)->getHealth()+1);}
+                else
+                    (*it)->setPosition(Vector2f(-10000,0));
+
+
+                (*it)->setTexture(*(objectBuilder.CreateObject((*it)->getHealth(),(*it)->getPosition(),(*it)->size())->getTexture()));
+                dx = -dx;
+                float old_dy = dy;
+
+                dy = rand()%3+1;
+                if(old_dy > 0 && dy < 0)
+                    dy = -dy;
+                else if(old_dy < 0 && dy > 0)
+                    dy = -dy;
+
+
+               if(dy > 0 && dy > 2){dy = 2;}
+               else if(dy < 0 && dy < -2){dy = -2;}
+
+               break;
+            }
 
 
        player->setPosition(Vector2f(player->getPosition().x - player->size().x/2,player->getPosition().y - player->size().y/2));
@@ -98,8 +122,28 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
 
         ball->move(Vector2f(0, dy));
         for (list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
-            if ( ball->getRect().intersects((*it)->getRect()))
-            {(*it)->setPosition(Vector2f(-10000,0)); dy=-dy; dx =- rand()%4+2; if(dx < 2) {dx = 2;}}
+            if ( ball->getRect().intersects((*it)->getRect()) && attack == false)
+            {
+                if((*it)->getHealth() < 2)
+                {(*it)->setHealth((*it)->getHealth()+1);}
+                else
+                    (*it)->setPosition(Vector2f(-10000,0));
+                (*it)->setTexture(*(objectBuilder.CreateObject((*it)->getHealth(),(*it)->getPosition(),(*it)->size())->getTexture()));
+                dy = -dy;
+                float old_dx = dx;
+
+                dx = rand()%3+1;
+                if(old_dx > 0 && dx < 0)
+                    dx = -dx;
+                else if(old_dx < 0 && dx > 0)
+                    dx = -dx;
+
+
+                if(dx > 0 && dx < 2){dx = 2;}
+                else if(dx < 0 && dx > -2){dx = -2;}
+
+                break;
+            }
 
 
         if(ball->getRect().intersects(player->getRect()))

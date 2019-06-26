@@ -9,9 +9,10 @@
 class ObjectBuilder{
 public:
     Entity* createBackground();
-    Entity* createIce();
+    Entity* createIce(int id);
     Entity* createBall();
     Entity* createPlayer();
     Entity* createRoad();
+    Entity* CreateObject(int id,Vector2f pos, Vector2f size);
 };
 #endif //ARCANOID_OBJECTBUILDER_H

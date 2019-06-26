@@ -20,7 +20,7 @@ void GameBuilder::BuildObjectList(list<Entity*>& list)
     for(int j = 0 ; j < 8; j++)
     {
         for(int i = 0; i < 8; i++)
-            ice[j][i] = objectBuilder.createIce();
+            ice[j][i] = objectBuilder.createIce(0);
     }
 
     float deltaX = _size.x / 8;
@@ -54,3 +54,4 @@ void GameBuilder::BuildObjectList(list<Entity*>& list)
             list.push_back(ice[j][i]);
     }
 }
+

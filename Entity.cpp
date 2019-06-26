@@ -30,7 +30,7 @@ void Entity::move(Vector2f offset)
 }
 
 Entity::Entity(const char* imageName)
-    : _pos(0,0)
+    : _pos(0,0), _health(0)
 {
     _image.loadFromFile(imageName);
     _texture.loadFromImage(_image);
@@ -70,4 +70,19 @@ FloatRect Entity::getRect() const
 
 Sprite* Entity::getSprite() {
     return &_sprite;
+}
+
+int Entity::getHealth() {
+    return _health;
+}
+void Entity::setHealth(int id) {
+    _health = id;
+}
+
+void Entity::setTexture(Texture &texture) {
+    _texture = texture;
+}
+
+Texture* Entity::getTexture() {
+    return &_texture;
 }

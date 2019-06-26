@@ -21,6 +21,7 @@ private:
 
     Vector2f _size;
     Vector2f _pos;
+    int _health;
 public:
     Entity(const char* imageName);
     Sound sound();
@@ -36,6 +37,10 @@ public:
     void setScale(Vector2f scale);
     void setOrigin(Vector2f pos);
     void draw(RenderWindow& app);
+    Texture* getTexture();
+    void setTexture(Texture& texture);
+    int getHealth();
+    void setHealth(int id);
 };
 
 
