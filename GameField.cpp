@@ -110,15 +110,13 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
 
        player->setPosition(Vector2f(player->getPosition().x - player->size().x/2,player->getPosition().y - player->size().y/2));
 
-       if(ball->getRect().intersects(player->getRect()))
+
+       if(ball->getRect().intersects(player->getRect()) && dx < 0.f && attack == false)
         {
             dx = -dx;
+            attack = true;
         }
 
-        if(player->getRect().contains(ball->getPosition().x, ball->getPosition().y) || player->getRect().contains(ball->getPosition().x, ball->getPosition().y + ball->size().y))
-        {
-            ball->setPosition(Vector2f(player->getPosition().x + player->size().x, ball->getPosition().y));
-        }
 
         ball->move(Vector2f(0, dy));
         for (list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
@@ -146,21 +144,12 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
             }
 
 
-        if(ball->getRect().intersects(player->getRect()))
+        if(ball->getRect().intersects(player->getRect())&& attack == false)
         {
             dy = -dy;
-        }
 
-
-        if(player->getRect().contains(ball->getPosition().x, ball->getPosition().y))
-        {
-            ball->setPosition(Vector2f(ball->getPosition().x, player->getPosition().y + player->size().y));
         }
-
-        if(player->getRect().contains(ball->getPosition().x, ball->getPosition().y + ball->size().y))
-        {
-            ball->setPosition(Vector2f(ball->getPosition().x, player->getPosition().y));
-        }
+        
 
         player->setPosition(Vector2f(player->getPosition().x + player->size().x/2,player->getPosition().y + player->size().y/2));
 
