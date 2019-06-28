@@ -18,16 +18,6 @@ void GameBuilder::BuildObjectList(list<Entity*>& list)
     Entity* gnomIce[8][8];
     ObjectBuilder objectBuilder;
 
-    for(int j = 0 ; j < 8; j++)
-    {
-        for(int i = 0; i < 8; i++)
-        {
-            ice[j][i] = objectBuilder.createIce(0);
-
-        }
-
-    }
-
     float deltaX = _size.x / 8;
     float deltaY = _size.y / 8;
     float dx = deltaX - 10;
@@ -39,14 +29,10 @@ void GameBuilder::BuildObjectList(list<Entity*>& list)
     {
         for(int i = 0; i < 8; i++)
         {
-            Entity* ent = ice[j][i];
 
-            Vector2f size = ent->size();
-            ent->setSize(Vector2f(dx, dy));
-            ent->setPosition(position);
-
+            ice[j][i] = objectBuilder.CreateObject(iceObj,0,position,Vector2f(dx, dy));
             gnomIce[j][i] = objectBuilder.CreateObject(gnomIceObj,0,position,Vector2f(dx, dy));
-            ent->move(Vector2f(5,5));
+            ice[j][i]->move(Vector2f(5,5));
             gnomIce[j][i]->move(Vector2f(5,5));
 
             position.x += deltaX;
@@ -56,11 +42,6 @@ void GameBuilder::BuildObjectList(list<Entity*>& list)
         position.y += deltaY;
     }
 
-
-    //for(int j = 0 ; j < 8; j++) {
-   //     for (int i = 0; i < 8; i++)
-    //        list.push_back(ice[j][i]);
-   // }
 
     PlaceEntitys(list, ice, gnomIce, GameField_01);
 }

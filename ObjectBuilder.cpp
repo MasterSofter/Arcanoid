@@ -57,6 +57,7 @@ Entity* ObjectBuilder::CreateObject(int object,int id, Vector2f pos, Vector2f si
     else if(object == 1){
         ent = objectBuilder.createGnomIce(id);
     }
+    ent->setName(object);
     ent->setSize(size);
     ent->setPosition(pos);
     return ent;

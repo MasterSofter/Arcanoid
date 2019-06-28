@@ -89,8 +89,13 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
                 else
                     (*it)->setPosition(Vector2f(-10000,0));
 
+                if((*it)->getName() == iceObj)
+                    (*it)->setTexture(*(objectBuilder.CreateObject(iceObj,(*it)->getHealth(),(*it)->getPosition(),(*it)->size())->getTexture()));
+                else if((*it)->getName() == gnomIceObj)
+                {
+                    (*it)->setTexture(*(objectBuilder.CreateObject(gnomIceObj,(*it)->getHealth(),(*it)->getPosition(),(*it)->size())->getTexture()));
 
-                (*it)->setTexture(*(objectBuilder.CreateObject(iceObj,(*it)->getHealth(),(*it)->getPosition(),(*it)->size())->getTexture()));
+                }
                 dx = -dx;
                 float old_dy = dy;
 
@@ -126,7 +131,14 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
                 {(*it)->setHealth((*it)->getHealth()+1);}
                 else
                     (*it)->setPosition(Vector2f(-10000,0));
-                (*it)->setTexture(*(objectBuilder.CreateObject(iceObj,(*it)->getHealth(),(*it)->getPosition(),(*it)->size())->getTexture()));
+
+                if((*it)->getName() == iceObj)
+                    (*it)->setTexture(*(objectBuilder.CreateObject(iceObj,(*it)->getHealth(),(*it)->getPosition(),(*it)->size())->getTexture()));
+                else if((*it)->getName() == gnomIceObj)
+                {
+                    (*it)->setTexture(*(objectBuilder.CreateObject(gnomIceObj,(*it)->getHealth(),(*it)->getPosition(),(*it)->size())->getTexture()));
+
+                }
                 dy = -dy;
                 float old_dx = dx;
 
