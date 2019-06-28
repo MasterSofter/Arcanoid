@@ -26,6 +26,10 @@ class GameField {
     Vector2u _size = app.getSize();
     list<Entity*> ice;
 
+
+    const int iceObj = 0;
+    const int gnomIceObj = 1;
+
 public:
     void createGameField(int countIce);
     void update(float dt, Vector2i pos, bool pressed);

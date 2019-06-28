@@ -14,6 +14,7 @@ Entity* ObjectBuilder::createBackground() {
 
 Entity* ObjectBuilder::createIce(int id) {
     Entity* ice;
+    //ice->setName(iceObj);
     if(id == 0)
     {ice = new Entity("textures/ice_01.png");}
     else if(id == 1)
@@ -48,11 +49,32 @@ Entity* ObjectBuilder::createBall() {
     return ball;
 }
 
-Entity* ObjectBuilder::CreateObject(int id, Vector2f pos, Vector2f size) {
+Entity* ObjectBuilder::CreateObject(int object,int id, Vector2f pos, Vector2f size) {
     Entity* ent;
     ObjectBuilder objectBuilder;
-    ent = objectBuilder.createIce(id);
+    if(object == 0)
+        ent = objectBuilder.createIce(id);
+    else if(object == 1){
+        ent = objectBuilder.createGnomIce(id);
+    }
     ent->setSize(size);
     ent->setPosition(pos);
     return ent;
+}
+
+Entity* ObjectBuilder::createGnomIce(int id) {
+    Entity* gnomice;
+    //gnomice->setName(1);
+    if(id == 0)
+    {gnomice = new Entity("textures/gnom_ice_01.png");}
+    else if(id == 1)
+    {gnomice = new Entity("textures/gnom_ice_02.png");}
+    else if(id == 2)
+    {gnomice = new Entity("textures/gnom_ice_03.png");}
+    else if(id == 3)
+    { gnomice = new Entity("textures/ice_04.png");}
+    else if(id == 4)
+    {gnomice = new Entity("textures/ice_05.png");}
+
+    return gnomice;
 }

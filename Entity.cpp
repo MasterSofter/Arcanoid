@@ -86,3 +86,11 @@ void Entity::setTexture(Texture &texture) {
 Texture* Entity::getTexture() {
     return &_texture;
 }
+
+int Entity::getName() {
+    return _name;
+}
+
+void Entity::setName(int id) {
+    _name = id;
+}

@@ -18,6 +18,7 @@ private:
     Image _image;
     Texture _texture;
     Sprite _sprite;
+    int _name;
 
     Vector2f _size;
     Vector2f _pos;
@@ -41,6 +42,8 @@ public:
     void setTexture(Texture& texture);
     int getHealth();
     void setHealth(int id);
+    int getName();
+    void setName(int id);
 };
 
 
