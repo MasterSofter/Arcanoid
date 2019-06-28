@@ -46,15 +46,23 @@ void GameBuilder::BuildObjectList(list<Entity*>& list)
     PlaceEntitys(list, ice, gnomIce, GameField_01);
 }
 
-void GameBuilder::PlaceEntitys(list<Entity*>& list,Entity* ice[8][8],Entity* gnomIce[8][8],int (*gamefield)[8]) {
-    for(int i = 0 ; i < 8; i++) {
+void GameBuilder::PlaceEntitys(list<Entity*>& list,Entity* ice[8][8],Entity* gnomIce[8][8],int gamefield [8][8]) {
+    for(int i = 0 ; i < 8; i++)
+    {
         for (int j = 0; j < 8; j++)
-            if(gamefield[i][j] == 1)
+        {
+            if(gamefield[j][i] == 1)
+            {
                 list.push_back(ice[j][i]);
-            else if(gamefield[i][j] == 2)
+            }
+            if(gamefield[i][j] == 2)
             {
                 list.push_back(gnomIce[i][j]);
             }
+        }
+
     }
+
+
 }
 
