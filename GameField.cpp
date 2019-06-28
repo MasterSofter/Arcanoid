@@ -10,6 +10,7 @@
 #include <ctime>
 #include "GameBuilder.h"
 #include <SFML/Graphics/Rect.hpp>
+#include "Entity.h"
 #include <stdlib.h>
 using  namespace sf;
 
@@ -50,6 +51,7 @@ void GameField::createGameField(int countIce) {
 }
 
 void GameField::update(float dt, Vector2i pos, bool pressed) {
+    _countAnimation++;
     bool attack = false;
     ObjectBuilder objectBuilder;
     app.setFramerateLimit(200);
@@ -81,13 +83,25 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
 
         ball->move(Vector2f(dx, 0));
         for (list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
-            if ( ball->getRect().intersects((*it)->getRect()) && attack == false)
+        {
+
+            animation(*it);
+
+            if ( ball->getRect().intersects((*it)->getRect()) && attack == false && (*it)->exist)
             {
                 attack = true;
                 if((*it)->getHealth() < 2)
                 {(*it)->setHealth((*it)->getHealth()+1);}
                 else
-                    (*it)->setPosition(Vector2f(-10000,0));
+                {
+                    if((*it)->getName() == iceObj)
+                        (*it)->setPosition(Vector2f(-10000,0));
+                    if((*it)->getName() == gnomIceObj) {
+
+                        (*it)->exist = false;
+                    }
+                }
+
 
                 if((*it)->getName() == iceObj)
                     (*it)->setTexture(*(objectBuilder.CreateObject(iceObj,(*it)->getHealth(),(*it)->getPosition(),(*it)->size())->getTexture()));
@@ -106,11 +120,13 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
                     dy = -dy;
 
 
-               if(dy > 0 && dy > 2){dy = 2;}
-               else if(dy < 0 && dy < -2){dy = -2;}
+                if(dy > 0 && dy > 2){dy = 2;}
+                else if(dy < 0 && dy < -2){dy = -2;}
 
-               break;
+                break;
             }
+        }
+
 
 
        player->setPosition(Vector2f(player->getPosition().x - player->size().x/2,player->getPosition().y - player->size().y/2));
@@ -125,12 +141,23 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
 
         ball->move(Vector2f(0, dy));
         for (list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
-            if ( ball->getRect().intersects((*it)->getRect()) && attack == false)
+        {
+
+            animation(*it);
+
+            if ( ball->getRect().intersects((*it)->getRect()) && attack == false && (*it)->exist)
             {
+
                 if((*it)->getHealth() < 2)
                 {(*it)->setHealth((*it)->getHealth()+1);}
                 else
-                    (*it)->setPosition(Vector2f(-10000,0));
+                {
+                    if((*it)->getName() == iceObj)
+                        (*it)->setPosition(Vector2f(-10000,0));
+                    if((*it)->getName() == gnomIceObj && (*it)->getHealth() == 2) {
+                        (*it)->exist = false;
+                    }
+                }
 
                 if((*it)->getName() == iceObj)
                     (*it)->setTexture(*(objectBuilder.CreateObject(iceObj,(*it)->getHealth(),(*it)->getPosition(),(*it)->size())->getTexture()));
@@ -155,6 +182,9 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
                 break;
             }
 
+        }
+
+
 
         if(ball->getRect().intersects(player->getRect())&& attack == false)
         {
@@ -178,13 +208,32 @@ void GameField::draw()
     road->draw(app);
     player->draw(app);
 
-
     for(list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
         (*it)->draw(app);
 
     ball->draw(app);
 
+
     app.display();
+}
+
+
+void GameField::animation(Entity* it) {
+    ObjectBuilder objectBuilder;
+    if(!(it)->exist && (it)->getHealth() < 6 && _countAnimation > 30)
+    {
+
+            (it)->setTexture(*(objectBuilder.CreateObject(gnomIceObj,(it)->getHealth(),(it)->getPosition(),(it)->size())->getTexture()));
+            (it)->setHealth((it)->getHealth() + 1);
+            (it)->draw(app);
+        _countAnimation = 0;
+
+    }
+    if((it)->getHealth() >= 6)
+        it->setPosition(Vector2f(-10000,0));
+
+
+
 }
 
 void GameField::randomGanerate() {

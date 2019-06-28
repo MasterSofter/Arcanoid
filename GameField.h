@@ -25,15 +25,18 @@ class GameField {
     Vector2i mousepos;
     Vector2u _size = app.getSize();
     list<Entity*> ice;
+    list<Entity*> _listObj;
 
 
     const int iceObj = 0;
     const int gnomIceObj = 1;
+    int _countAnimation = 0;
 
 public:
     void createGameField(int countIce);
     void update(float dt, Vector2i pos, bool pressed);
     void draw();
+    void animation(Entity* it);
     void randomGanerate();
 
 public:

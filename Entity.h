@@ -24,6 +24,7 @@ private:
     Vector2f _pos;
     int _health;
 public:
+    bool exist = true;
     Entity(const char* imageName);
     Sound sound();
     void animation();

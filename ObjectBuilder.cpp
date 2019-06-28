@@ -73,9 +73,11 @@ Entity* ObjectBuilder::createGnomIce(int id) {
     else if(id == 2)
     {gnomice = new Entity("textures/gnom_ice_03.png");}
     else if(id == 3)
-    { gnomice = new Entity("textures/ice_04.png");}
+    { gnomice = new Entity("textures/gnom_ice_04.png");}
     else if(id == 4)
-    {gnomice = new Entity("textures/ice_05.png");}
+    {gnomice = new Entity("textures/gnom_ice_05.png");}
+    else if(id == 5)
+    {gnomice = new Entity("textures/gnom_ice_06.png");}
 
     return gnomice;
 }
