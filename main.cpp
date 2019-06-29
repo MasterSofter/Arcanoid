@@ -6,7 +6,6 @@
 #include "Game.h"
 #include <iostream>
 #include <time.h>
-#include <SFML/Window/Mouse.hpp>
 #include "SFML/System/Clock.hpp"
 
 using namespace sf;
@@ -19,21 +18,25 @@ int main() {
 
     Game game(wnd);
     game.createGameField();
-    Mouse mouse;
-    Clock clock;
+
+    sf::Clock clock;
+    sf::Time timeSinceLastUpdate = sf::Time::Zero;
+    sf::Time timePerFrame = sf::seconds(1.f/60.f);
 
     while (wnd.isOpen())
     {
-        Event e;
-        while (wnd.pollEvent(e))
+        sf::Time dt = clock.restart();
+        timeSinceLastUpdate += dt;
+
+        while (timeSinceLastUpdate >= timePerFrame)
         {
-            if (e.type == Event::Closed)
-                wnd.close();
+            timeSinceLastUpdate -= timePerFrame;
+
+            game.processInput();
+            game.update(timePerFrame);
         }
 
-        game.update(dt, mouse.getPosition(wnd), mouse.isButtonPressed(Mouse::Button::Left));
         game.draw();
-        clock.restart();
     }
 
     return 0;

@@ -12,12 +12,14 @@
 #include <SFML/Graphics/Rect.hpp>
 #include "Entity.h"
 #include <stdlib.h>
+#include <SFML/Window/Mouse.hpp>
+
 using  namespace sf;
 
 using namespace std;
 
 Game::Game(RenderWindow& _app)
-    : app(_app)
+    : wnd(_app)
 {
 
 }
@@ -39,7 +41,7 @@ void Game::createGameField() {
     player = objectBuilder.createPlayer();
     ball = objectBuilder.createBall();
 
-    Vector2u size = app.getSize();
+    Vector2u size = wnd.getSize();
     Vector2f gameSize(size.x/2 + 50, size.y - 50);
 
     GameBuilder gameBuilder(Vector2f(size.x/2-75, 25), gameSize);
@@ -50,31 +52,41 @@ void Game::createGameField() {
     ball->setPosition(Vector2f(road->getPosition().x + road->size().x/2.f + player->size().x/2, size.y/2));
 }
 
-void Game::update(float dt, Vector2i pos, bool pressed) {
+void Game::processInput()
+{
+    Event e;
+    while (wnd.pollEvent(e))
+    {
+        if (e.type == Event::Closed)
+            wnd.close();
+    }
+
+    Mouse mouse;
+    mousePosition = mouse.getPosition(wnd);
+    leftButtonPressed = mouse.isButtonPressed(Mouse::Button::Left);
+}
+
+void Game::update(sf::Time dt) {
     _countAnimation++;
     bool attack = false;
     ObjectBuilder objectBuilder;
-    app.setFramerateLimit(220);
-    player->move(Vector2f(player->getPosition().x, pos.y) - player->getPosition());
-
+    //wnd.setFramerateLimit(220);
+    player->move(Vector2f(player->getPosition().x, mousePosition.y) - player->getPosition());
 
     Vector2f positionBall;
     bool flagX = false;
     bool flagY = false;
-    if (pressed == true) { gameStarted = true; }
+    if (leftButtonPressed == true) { gameStarted = true; }
 
     if (!gameStarted) {
-        ball->move(Vector2f(ball->getPosition().x, pos.y - 20) - ball->getPosition());
+        ball->move(Vector2f(ball->getPosition().x, mousePosition.y - 20) - ball->getPosition());
         positionBall = ball->getPosition();
 
-    } else {
-
-
-
+    }
+    else {
        if(ball->getPosition().x < 0 || ball->getPosition().x + ball->size().x > _size.x)
        {
            dx = -dx; 
-
        }
        else if(ball->getPosition().y < 0 || ball->getPosition().y + ball->size().y > _size.y)
        {
@@ -84,7 +96,6 @@ void Game::update(float dt, Vector2i pos, bool pressed) {
         ball->move(Vector2f(dx, 0));
         for (list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
         {
-
             animation(*it);
 
             if ( ball->getRect().intersects((*it)->getRect()) && attack == false && (*it)->exist)
@@ -101,7 +112,6 @@ void Game::update(float dt, Vector2i pos, bool pressed) {
                         (*it)->exist = false;
                     }
                 }
-
 
                 if((*it)->getName() == iceObj)
                     (*it)->setTexture(*(objectBuilder.CreateObject(iceObj,(*it)->getHealth(),(*it)->getPosition(),(*it)->size())->getTexture()));
@@ -127,12 +137,10 @@ void Game::update(float dt, Vector2i pos, bool pressed) {
             }
         }
 
+        player->setPosition(Vector2f(player->getPosition().x - player->size().x/2,player->getPosition().y - player->size().y/2));
 
 
-       player->setPosition(Vector2f(player->getPosition().x - player->size().x/2,player->getPosition().y - player->size().y/2));
-
-
-       if(ball->getRect().intersects(player->getRect()) && dx < 0.f && attack == false)
+        if(ball->getRect().intersects(player->getRect()) && dx < 0.f && attack == false)
         {
             dx = -dx;
             attack = true;
@@ -181,42 +189,31 @@ void Game::update(float dt, Vector2i pos, bool pressed) {
 
                 break;
             }
-
         }
-
-
 
         if(ball->getRect().intersects(player->getRect())&& attack == false)
         {
             dy = -dy;
-
         }
 
-
         player->setPosition(Vector2f(player->getPosition().x + player->size().x/2,player->getPosition().y + player->size().y/2));
-
-
     }
 }
 
-
 void Game::draw()
 {
-    app.clear();
+    wnd.clear();
 
-    background->draw(app);
-    road->draw(app);
-    player->draw(app);
+    background->draw(wnd);
+    road->draw(wnd);
+    player->draw(wnd);
 
     for(list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
-        (*it)->draw(app);
+        (*it)->draw(wnd);
 
-    ball->draw(app);
-
-
-    app.display();
+    ball->draw(wnd);
+    wnd.display();
 }
-
 
 void Game::animation(Entity* it) {
     ObjectBuilder objectBuilder;
@@ -225,7 +222,7 @@ void Game::animation(Entity* it) {
 
             (it)->setTexture(*(objectBuilder.CreateObject(gnomIceObj,(it)->getHealth(),(it)->getPosition(),(it)->size())->getTexture()));
             (it)->setHealth((it)->getHealth() + 1);
-            (it)->draw(app);
+            (it)->draw(wnd);
         _countAnimation = 0;
 
     }

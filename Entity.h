@@ -26,7 +26,7 @@ private:
 public:
     bool exist = true;
     Entity(const char* imageName);
-    Sound sound();
+    Sound* sound();
     void animation();
     void setPosition(Vector2f pos);
     Vector2f getPosition() const;

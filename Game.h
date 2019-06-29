@@ -14,7 +14,7 @@ using namespace sf;
 using namespace std;
 
 class Game {
-    RenderWindow& app;
+    RenderWindow& wnd;
     Entity* background;
     Entity* road;
     Entity* player;
@@ -23,10 +23,12 @@ class Game {
 
     bool gameStarted = false;
     Vector2i mousepos;
-    Vector2u _size = app.getSize();
+    Vector2u _size = wnd.getSize();
     list<Entity*> ice;
     list<Entity*> _listObj;
 
+    Vector2i mousePosition;
+    bool leftButtonPressed;
 
     const int iceObj = 0;
     const int gnomIceObj = 1;
@@ -34,7 +36,8 @@ class Game {
 
 public:
     void createGameField();
-    void update(float dt, Vector2i pos, bool pressed);
+    void processInput();
+    void update(sf::Time dt);
     void draw();
     void animation(Entity* it);
     void randomGanerate();

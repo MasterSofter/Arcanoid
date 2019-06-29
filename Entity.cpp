@@ -7,8 +7,9 @@
 
 
 
-Sound Entity::sound() {
+Sound* Entity::sound() {
     //Todo: Не забыть реальзацию звука
+    return nullptr;
 }
 
 void Entity::animation() {
