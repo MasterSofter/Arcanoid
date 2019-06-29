@@ -9,42 +9,52 @@
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics/Rect.hpp>
+#include "../EnumTexture.h"
 
 using namespace sf;
 
-class Entity {
+class Game;
 
-private:
-    Image _image;
-    Texture _texture;
+class Entity {
+protected:
     Sprite _sprite;
     int _name;
 
     Vector2f _size;
     Vector2f _pos;
     int _health;
+    sf::Vector2f _velocity;
+    Game& _game;
+
 public:
-    bool exist = true;
-    Entity(const char* imageName);
+    Entity(Game& game, const Vector2f& pos, const Vector2f& size, EnumTexture enumTexture);
+
     Sound* sound();
     void animation();
     void setPosition(Vector2f pos);
     Vector2f getPosition() const;
-    Vector2f size() const;
+    const Vector2f& size() const;
 
-    Sprite* getSprite();
+    void setVelocity(sf::Vector2f velocity);
+    void setVelocity(float x, float y);
+    void accelerate(sf::Vector2f velocity);
+    sf::Vector2f getVelocity() const;
+    bool collision(Entity* ent);
+
+    //Sprite* getSprite();
     FloatRect getRect() const;
-    void setSize(Vector2f size);
     void move(Vector2f offset);
-    void setScale(Vector2f scale);
+    //void setScale(Vector2f scale);
     void setOrigin(Vector2f pos);
     void draw(RenderWindow& app);
-    Texture* getTexture();
-    void setTexture(Texture& texture);
     int getHealth();
     void setHealth(int id);
     int getName();
     void setName(int id);
+    bool exist() const;
+
+    virtual void update(sf::Time dt);
+    virtual void attack();
 };
 
 

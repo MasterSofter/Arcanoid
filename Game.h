@@ -7,7 +7,9 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Window/Mouse.hpp>
-#include "Entity.h"
+#include "Entities/Entity.h"
+#include "Entities/EntityBall.h"
+#include "Entities/EntityPlayer.h"
 #include <list>
 
 using namespace sf;
@@ -17,12 +19,12 @@ class Game {
     RenderWindow& wnd;
     Entity* background;
     Entity* road;
-    Entity* player;
-    Entity* ball;
+    EntityPlayer* player;
+    EntityBall* ball;
+
     float dx = 2, dy = 0;
 
     bool gameStarted = false;
-    Vector2i mousepos;
     Vector2u _size = wnd.getSize();
     list<Entity*> ice;
     list<Entity*> _listObj;
@@ -35,6 +37,8 @@ class Game {
     int _countAnimation = 0;
 
 public:
+    RenderWindow& getWindow() const;
+    const list<Entity*>& getEntities() const;
     void createGameField();
     void processInput();
     void update(sf::Time dt);
@@ -43,7 +47,7 @@ public:
     void randomGanerate();
 
 public:
-    Game(RenderWindow& app);
+    Game(RenderWindow& wnd);
     ~Game();
 
 };

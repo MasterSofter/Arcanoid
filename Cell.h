@@ -6,7 +6,7 @@
 #define ARCANOID_CELL_H
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
-#include "Entity.h"
+#include "Entities/Entity.h"
 struct Cell{
     float pointX;
     float pointY;

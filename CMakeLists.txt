@@ -53,11 +53,18 @@ link_directories(${SFML_PATH}/lib)
 
 # Установка переменной со списком исходников
 set (SRC
-        Entity.cpp
+		Entities/Entity.cpp
 		ObjectBuilder.cpp
 		Game.cpp
 		GameBuilder.cpp
-		main.cpp)
+		main.cpp
+        Entities/EntityIce.cpp
+		RecourceMng.cpp
+		EnumTexture.h
+		Entities/EntityIceWithGnom.cpp
+		Entities/EntityBall.cpp
+		Entities/EntityPlayer.cpp
+		Utils.cpp)
 
 
 add_executable(${APP_NAME} ${SRC})

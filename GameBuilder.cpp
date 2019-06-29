@@ -1,7 +1,3 @@
-//
-// Created by Павел on 2019-06-23.
-//
-
 #include "GameBuilder.h"
 #include "ObjectBuilder.h"
 
@@ -14,26 +10,34 @@ GameBuilder::GameBuilder(Vector2f origin, Vector2f size)
 
 void GameBuilder::BuildObjectList(list<Entity*>& list)
 {
-    Entity* ice[8][8];
-    Entity* gnomIce[8][8];
     ObjectBuilder objectBuilder;
 
     float deltaX = _size.x / 8;
     float deltaY = _size.y / 8;
+
+    // размер ячейки сетки
     float dx = deltaX - 10;
     float dy = deltaY - 10;
 
     Vector2f position = _origin;
 
-    for(int j = 0; j < 8; j++)
+    for(int i = 0 ; i < 8; i++)
     {
-        for(int i = 0; i < 8; i++)
+        for (int j = 0; j < 8; j++)
         {
+            Vector2f pos = position + Vector2f(5,5);
+            Vector2f size = Vector2f(dx-10, dy-10);
 
-            ice[j][i] = objectBuilder.CreateObject(iceObj,0,position,Vector2f(dx, dy));
-            gnomIce[j][i] = objectBuilder.CreateObject(gnomIceObj,0,position,Vector2f(dx, dy));
-            ice[j][i]->move(Vector2f(5,5));
-            gnomIce[j][i]->move(Vector2f(5,5));
+            switch (GameField_01[j][i])
+            {
+                case 1:
+                    list.push_back(objectBuilder.createIce(pos, size));
+                    break;
+
+                case 2:
+                    list.push_back(objectBuilder.createIceWithGnom(pos, size));
+                    break;
+            }
 
             position.x += deltaX;
         }
@@ -41,28 +45,5 @@ void GameBuilder::BuildObjectList(list<Entity*>& list)
         position.x = _origin.x;
         position.y += deltaY;
     }
-
-
-    PlaceEntitys(list, ice, gnomIce, GameField_01);
-}
-
-void GameBuilder::PlaceEntitys(list<Entity*>& list,Entity* ice[8][8],Entity* gnomIce[8][8],int gamefield [8][8]) {
-    for(int i = 0 ; i < 8; i++)
-    {
-        for (int j = 0; j < 8; j++)
-        {
-            if(gamefield[j][i] == 1)
-            {
-                list.push_back(ice[j][i]);
-            }
-            if(gamefield[i][j] == 2)
-            {
-                list.push_back(gnomIce[i][j]);
-            }
-        }
-
-    }
-
-
 }
 

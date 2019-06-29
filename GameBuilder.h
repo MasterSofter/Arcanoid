@@ -6,7 +6,7 @@
 #define ARCANOID_GAMEBUILDER_H
 
 #include <list>
-#include "Entity.h"
+#include "Entities/Entity.h"
 
 using namespace std;
 
@@ -42,7 +42,6 @@ public:
     GameBuilder(Vector2f origin, Vector2f size);
     void  BuildObjectList(list<Entity*>& list);
     void DeleteObject(list<Entity*>::iterator& it);
-    void PlaceEntitys(list<Entity*>& list, Entity* ice[8][8],Entity* gnomIce[8][8], int gamefield[8][8]);
 
 
 };

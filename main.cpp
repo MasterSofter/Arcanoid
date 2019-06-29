@@ -1,12 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Audio.hpp>
-#include "Entity.h"
+#include "Entities/Entity.h"
 #include "ObjectBuilder.h"
 #include "Game.h"
 #include <iostream>
 #include <time.h>
 #include "SFML/System/Clock.hpp"
+#include "RecourceMng.h"
 
 using namespace sf;
 int main() {
@@ -15,6 +16,7 @@ int main() {
     float dt;
 
     RenderWindow wnd(VideoMode(1240, 720), "Ackanoid!");
+    RecourceMng::Instance().Init();
 
     Game game(wnd);
     game.createGameField();
