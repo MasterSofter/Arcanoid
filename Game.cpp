@@ -2,7 +2,7 @@
 // Created by Павел on 2019-06-22.
 //
 
-#include "GameField.h"
+#include "Game.h"
 #include "ObjectBuilder.h"
 #include "Cell.h"
 #include <iostream>
@@ -16,7 +16,7 @@ using  namespace sf;
 
 using namespace std;
 
-GameField::GameField(RenderWindow& _app)
+Game::Game(RenderWindow& _app)
     : app(_app)
 {
 
@@ -28,7 +28,7 @@ GameField::GameField(RenderWindow& _app)
 
 //}
 
-void GameField::createGameField(int countIce) {
+void Game::createGameField() {
 
     randomGanerate();
 
@@ -50,11 +50,11 @@ void GameField::createGameField(int countIce) {
     ball->setPosition(Vector2f(road->getPosition().x + road->size().x/2.f + player->size().x/2, size.y/2));
 }
 
-void GameField::update(float dt, Vector2i pos, bool pressed) {
+void Game::update(float dt, Vector2i pos, bool pressed) {
     _countAnimation++;
     bool attack = false;
     ObjectBuilder objectBuilder;
-    app.setFramerateLimit(200);
+    app.setFramerateLimit(220);
     player->move(Vector2f(player->getPosition().x, pos.y) - player->getPosition());
 
 
@@ -200,7 +200,7 @@ void GameField::update(float dt, Vector2i pos, bool pressed) {
 }
 
 
-void GameField::draw()
+void Game::draw()
 {
     app.clear();
 
@@ -218,7 +218,7 @@ void GameField::draw()
 }
 
 
-void GameField::animation(Entity* it) {
+void Game::animation(Entity* it) {
     ObjectBuilder objectBuilder;
     if(!(it)->exist && (it)->getHealth() < 6 && _countAnimation > 30)
     {
@@ -236,7 +236,7 @@ void GameField::animation(Entity* it) {
 
 }
 
-void GameField::randomGanerate() {
+void Game::randomGanerate() {
     int countIce;
     countIce = 0 + rand() % 48;
     while(countIce > 49)
@@ -246,7 +246,7 @@ void GameField::randomGanerate() {
     cout<< countIce<<endl;
 }
 
-GameField::~GameField(){
+Game::~Game(){
     delete background;
     for(list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
         delete *it;

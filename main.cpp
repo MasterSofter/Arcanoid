@@ -3,35 +3,37 @@
 #include <SFML/Audio.hpp>
 #include "Entity.h"
 #include "ObjectBuilder.h"
-#include "GameField.h"
+#include "Game.h"
 #include <iostream>
 #include <time.h>
 #include <SFML/Window/Mouse.hpp>
+#include "SFML/System/Clock.hpp"
 
 using namespace sf;
 int main() {
     srand(time(0));
 
     float dt;
-    int countIce = 80;
-    RenderWindow app(VideoMode(1240, 720), "Ackanoid!");
 
-    GameField gameField(app);
-    gameField.createGameField(countIce);
+    RenderWindow wnd(VideoMode(1240, 720), "Ackanoid!");
+
+    Game game(wnd);
+    game.createGameField();
     Mouse mouse;
+    Clock clock;
 
-    while (app.isOpen())
+    while (wnd.isOpen())
     {
         Event e;
-        while (app.pollEvent(e))
+        while (wnd.pollEvent(e))
         {
             if (e.type == Event::Closed)
-                app.close();
+                wnd.close();
         }
 
-        gameField.update(dt, mouse.getPosition(app), mouse.isButtonPressed(Mouse::Button::Left));
-        gameField.draw();
-
+        game.update(dt, mouse.getPosition(wnd), mouse.isButtonPressed(Mouse::Button::Left));
+        game.draw();
+        clock.restart();
     }
 
     return 0;

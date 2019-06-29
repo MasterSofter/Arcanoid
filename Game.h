@@ -13,7 +13,7 @@
 using namespace sf;
 using namespace std;
 
-class GameField {
+class Game {
     RenderWindow& app;
     Entity* background;
     Entity* road;
@@ -33,16 +33,18 @@ class GameField {
     int _countAnimation = 0;
 
 public:
-    void createGameField(int countIce);
+    void createGameField();
     void update(float dt, Vector2i pos, bool pressed);
     void draw();
     void animation(Entity* it);
     void randomGanerate();
 
 public:
-    GameField(RenderWindow& app);
-    ~GameField();
+    Game(RenderWindow& app);
+    ~Game();
 
 };
+
+
 
 #endif //ARCANOID_GAMEFIELDBUILDER_H

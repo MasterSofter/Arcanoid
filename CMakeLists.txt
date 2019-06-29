@@ -55,7 +55,7 @@ link_directories(${SFML_PATH}/lib)
 set (SRC
         Entity.cpp
 		ObjectBuilder.cpp
-		GameField.cpp
+		Game.cpp
 		GameBuilder.cpp
 		main.cpp)
 
