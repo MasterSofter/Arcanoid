@@ -41,14 +41,13 @@ Entity* ObjectBuilder::createRoad(const Vector2f& pos, const Vector2f& size)
 EntityPlayer* ObjectBuilder::createPlayer(const Vector2f& pos, const Vector2f& size)
 {
     EntityPlayer* player = new EntityPlayer(_game, pos, size);
-    player->setOrigin(player->size()/2.f);
-    //player->setScale(Vector2f(0.5, 0.5));
     return player;
 
 }
 
 EntityBall* ObjectBuilder::createBall(const Vector2f& pos, const Vector2f& size) {
     EntityBall* ball = new EntityBall(_game, pos, size);
+    ball->setOrigin(ball->size()/2.f);
     //ball->setScale(Vector2f(0.68, 0.68));
     ball->setVelocity(Vector2f(400, 0));
     return ball;

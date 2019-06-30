@@ -7,13 +7,14 @@
 #include "../Game.h"
 
 Entity::Entity(Game& game, const Vector2f& pos, const Vector2f& size, EnumTexture enumTexture)
-    : _game(game), _pos(pos), _size(size), _health(1)
+    : _game(game), _size(size), _health(1)
 {
     const Texture& texture = RecourceMng::Instance().GetTexture(enumTexture);
     _sprite.setTexture(texture);
 
     Vector2u ts = texture.getSize();
     _sprite.setScale(size.x/ts.x, size.y/ts.y);
+    _sprite.setPosition(pos);
 }
 
 bool Entity::exist() const {
@@ -30,12 +31,11 @@ void Entity::animation() {
 }
 
 void Entity::setPosition(Vector2f pos){
-    _pos = pos;
-    _sprite.setPosition(_pos);
+    _sprite.setPosition(pos);
 }
 
 Vector2f Entity::getPosition() const {
-    return _pos;
+    return _sprite.getPosition();
 }
 
 void Entity::setVelocity(sf::Vector2f velocity)
@@ -72,15 +72,25 @@ void Entity::update(sf::Time dt)
 const Vector2f& Entity::size() const {
     return _size;
 }
-/*
+
 void Entity::setScale(Vector2f scale)
 {
     _sprite.setScale(scale);
-    _size = Vector2f(_texture.getSize().x * scale.x, _texture.getSize().y * scale.y);
+    _size = Vector2f(_sprite.getTexture()->getSize().x * scale.x, _sprite.getTexture()->getSize().y * scale.y);
 }
-*/
-void Entity::draw(RenderWindow &app) {
-    app.draw(_sprite);
+
+void Entity::draw(RenderWindow &wnd) {
+    wnd.draw(_sprite);
+
+//#ifdef DEBUG
+    sf::RectangleShape rect;
+    rect.setSize(size());
+    rect.setOutlineColor(sf::Color::Red);
+    rect.setOutlineThickness(1);
+    rect.setOrigin(_sprite.getOrigin());
+    rect.setPosition(getPosition());
+    wnd.draw(rect);
+//#endif
 }
 
 void Entity::setOrigin(Vector2f pos) {
@@ -89,7 +99,11 @@ void Entity::setOrigin(Vector2f pos) {
 
 FloatRect Entity::getRect() const
 {
-    return FloatRect(_pos.x, _pos.y, _size.x, _size.y);
+
+    return FloatRect(_sprite.getPosition().x - _sprite.getOrigin().x,
+            _sprite.getPosition().y  - _sprite.getOrigin().y,
+            _size.x,
+            _size.y);
 }
 /*
 Sprite* Entity::getSprite() {

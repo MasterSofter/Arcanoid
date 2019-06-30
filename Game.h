@@ -39,11 +39,12 @@ class Game {
 public:
     RenderWindow& getWindow() const;
     const list<Entity*>& getEntities() const;
+    EntityPlayer* getPlayer();
     void createGameField();
     void processInput();
     void update(sf::Time dt);
     void draw();
-    void animation(Entity* it);
+    //void animation(Entity* it);
     void randomGanerate();
 
 public:

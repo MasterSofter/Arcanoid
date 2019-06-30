@@ -15,7 +15,7 @@ int main() {
 
     float dt;
 
-    RenderWindow wnd(VideoMode(1240, 720), "Ackanoid!");
+    RenderWindow wnd(VideoMode(1600, 1000), "Ackanoid!");
     RecourceMng::Instance().Init();
 
     Game game(wnd);

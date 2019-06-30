@@ -1,8 +1,10 @@
 #include "GameBuilder.h"
 #include "ObjectBuilder.h"
+#include "Game.h"
 
-GameBuilder::GameBuilder(Vector2f origin, Vector2f size)
-    : _origin(origin),
+GameBuilder::GameBuilder(Game* game, Vector2f origin, Vector2f size)
+    : _game(*game),
+      _origin(origin),
       _size(size)
 {
 
@@ -10,7 +12,7 @@ GameBuilder::GameBuilder(Vector2f origin, Vector2f size)
 
 void GameBuilder::BuildObjectList(list<Entity*>& list)
 {
-    ObjectBuilder objectBuilder;
+    ObjectBuilder objectBuilder(_game);
 
     float deltaX = _size.x / 8;
     float deltaY = _size.y / 8;

@@ -2,6 +2,7 @@
 #include "../Game.h"
 #include "../Utils.h"
 #include "../RectSide.h"
+
 EntityBall::EntityBall(Game& game, const Vector2f& pos, const Vector2f& size)
         : Entity(game, pos, size, EnumTexture::Ball)
 {
@@ -18,7 +19,7 @@ void EntityBall::attack()
     }
 }
 
-void Entity::update(sf::Time dt)
+void EntityBall::update(sf::Time dt)
 {
     RectSide rectSide;
     Vector2u wndSize = _game.getWindow().getSize();
@@ -37,6 +38,14 @@ void Entity::update(sf::Time dt)
             break;
         }
     }
+
+    if(collisionEntity == nullptr)
+    {
+        EntityPlayer* player = _game.getPlayer();
+        if(player->collision(this))
+            collisionEntity = player;
+    }
+
 
     //Если пересечение есть
     if(collisionEntity != nullptr)
@@ -69,9 +78,9 @@ void Entity::update(sf::Time dt)
 
 
     ///Расчитываем удар о стены
-    if(_pos.x < 0 || _pos.x + size().x > wndSize.x)
+    if(getPosition().x < 0 || getPosition().x + size().x > wndSize.x)
         setVelocity(-_velocity.x, _velocity.y);
-    else if(_pos.y < 0 || _pos.y + size().y > wndSize.y)
+    else if(getPosition().y < 0 || getPosition().y + size().y > wndSize.y)
         setVelocity(_velocity.x, -_velocity.y);
 
 }

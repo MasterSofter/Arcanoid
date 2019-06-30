@@ -1,11 +1,7 @@
-//
-// Created by Павел on 2019-06-30.
-//
-
 #ifndef ARCANOID_RECTSIDE_H
 #define ARCANOID_RECTSIDE_H
 
-#include <SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 #include "RectSideEnum.h"
 
 using namespace sf;

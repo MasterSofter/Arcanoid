@@ -23,6 +23,11 @@ Game::Game(RenderWindow& _wnd)
 {
 }
 
+Game::~Game(){
+    delete background;
+    for(list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
+        delete *it;
+}
 
 //bool contain(Vector2f object, Vector2f intersection)
 //{
@@ -32,6 +37,11 @@ Game::Game(RenderWindow& _wnd)
 RenderWindow& Game::getWindow() const
 {
     return wnd;
+}
+
+EntityPlayer* Game::getPlayer()
+{
+    return player;
 }
 
 void Game::createGameField() {
@@ -44,12 +54,13 @@ void Game::createGameField() {
     ObjectBuilder objectBuilder(*this);
 
     background = objectBuilder.createBackground(Vector2f(size.x, size.y));
-    road = objectBuilder.createRoad(Vector2f(20, 0), Vector2f(109, size.y));
+    road = objectBuilder.createRoad(Vector2f(20, 0), Vector2f(100, size.y));
 
-    player = objectBuilder.createPlayer(Vector2f(road->getPosition().x + road->size().x/2.f, size.y/2), Vector2f(120, 130));
-    ball = objectBuilder.createBall(Vector2f(road->getPosition().x + road.size().x/2.f + player->size().x/2, size.y/2), Vector2f(40, 40));
+    player = objectBuilder.createPlayer(Vector2f(20 + road->size().x/2, size.y/2), Vector2f(160, 170));
+    ball = objectBuilder.createBall(player->getPosition(), Vector2f(40, 40));
+    ball->setPosition(Vector2f(player->getPosition().x + player->size().x/2 + ball->size().x/2, player->getPosition().y));
 
-    GameBuilder gameBuilder(Vector2f(size.x/2-75, 25), gameSize);
+    GameBuilder gameBuilder(this, Vector2f(size.x/2-75, 25), gameSize);
     gameBuilder.BuildObjectList(ice);
 }
 
@@ -81,24 +92,19 @@ void Game::update(sf::Time dt) {
 
     if (!gameStarted)
     {
-        ball->move(Vector2f(ball->getPosition().x, mousePosition.y - 20) - ball->getPosition());
+        ball->setPosition(Vector2f(player->getPosition().x + player->size().x/2 + ball->size().x/2, player->getPosition().y));
         return;
     }
 
-
     ball->update(dt);
 
-
-
-
-
+/*
     player->setPosition(Vector2f(player->getPosition().x - player->size().x/2,player->getPosition().y - player->size().y/2));
 
 
-    if(ball->getRect().intersects(player->getRect()) && dx < 0.f && attack == false)
+    if(ball->getRect().intersects(player->getRect()) && dx < 0.f)
     {
         dx = -dx;
-        attack = true;
     }
 
 
@@ -108,7 +114,7 @@ void Game::update(sf::Time dt) {
 
         animation(*it);
 
-        if ( ball->getRect().intersects((*it)->getRect()) && attack == false && (*it)->exist)
+        if ( ball->getRect().intersects((*it)->getRect()) && (*it)->exist)
         {
 
             if((*it)->getHealth() < 2)
@@ -154,6 +160,7 @@ void Game::update(sf::Time dt) {
     }
 
     player->setPosition(Vector2f(player->getPosition().x + player->size().x/2,player->getPosition().y + player->size().y/2));
+    */
 }
 
 void Game::draw()
@@ -170,9 +177,9 @@ void Game::draw()
     ball->draw(wnd);
     wnd.display();
 }
-
+/*
 void Game::animation(Entity* it) {
-    ObjectBuilder objectBuilder;
+    ObjectBuilder objectBuilder(*this);
     if(!(it)->exist && (it)->getHealth() < 6 && _countAnimation > 30)
     {
 
@@ -188,7 +195,7 @@ void Game::animation(Entity* it) {
 
 
 }
-
+*/
 void Game::randomGanerate() {
     int countIce;
     countIce = 0 + rand() % 48;
@@ -197,10 +204,4 @@ void Game::randomGanerate() {
         countIce = 0 + rand() % 49;
     }
     cout<< countIce<<endl;
-}
-
-Game::~Game(){
-    delete background;
-    for(list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
-        delete *it;
 }

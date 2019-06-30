@@ -21,7 +21,6 @@ protected:
     int _name;
 
     Vector2f _size;
-    Vector2f _pos;
     int _health;
     sf::Vector2f _velocity;
     Game& _game;
@@ -44,9 +43,9 @@ public:
     //Sprite* getSprite();
     FloatRect getRect() const;
     void move(Vector2f offset);
-    //void setScale(Vector2f scale);
+    void setScale(Vector2f scale);
     void setOrigin(Vector2f pos);
-    void draw(RenderWindow& app);
+    void draw(RenderWindow& wnd);
     int getHealth();
     void setHealth(int id);
     int getName();

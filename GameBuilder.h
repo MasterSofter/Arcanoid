@@ -10,9 +10,13 @@
 
 using namespace std;
 
+class Game;
+
 class GameBuilder {
+    Game& _game;
     Vector2f _origin;
     Vector2f _size;
+
     int GameField_01[8][8]{
             2,1,1,1,1,1,1,1,
             2,1,0,0,0,0,1,1,
@@ -39,11 +43,9 @@ class GameBuilder {
     const int gnomIceObj = 1;
 
 public:
-    GameBuilder(Vector2f origin, Vector2f size);
+    GameBuilder(Game* game, Vector2f origin, Vector2f size);
     void  BuildObjectList(list<Entity*>& list);
     void DeleteObject(list<Entity*>::iterator& it);
-
-
 };
 
 
