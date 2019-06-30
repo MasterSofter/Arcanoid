@@ -13,6 +13,8 @@ public:
     static  float length(Vector2f vector);
     static  Vector2f normalize(Vector2f vector);
 
+    /// Скалярное произведение векторов
+    static  float ScalarProduct(Vector2f u, Vector2f v);
 };
 
 

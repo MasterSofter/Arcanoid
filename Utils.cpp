@@ -98,4 +98,9 @@ Vector2f Utils::normalize(Vector2f vector)
     return vector / length(vector);
 }
 
+float Utils::ScalarProduct(Vector2f u, Vector2f v)
+{
+    return u.x * v.x + u.y * v.y;
+}
+
 
