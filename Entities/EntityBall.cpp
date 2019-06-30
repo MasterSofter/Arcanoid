@@ -21,6 +21,7 @@ void EntityBall::attack()
 
 void EntityBall::update(sf::Time dt)
 {
+    attacks = false;
     RectSide rectSide;
     Vector2u wndSize = _game.getWindow().getSize();
 
@@ -62,7 +63,8 @@ void EntityBall::update(sf::Time dt)
             }
             if(rectSide.side == Right)
             {
-                _velocity = Vector2f(-_velocity.x,_velocity.y);
+                _velocity = Vector2f(-_velocity.x,_velocity.y + collisionEntity->getVelocity().y);
+
             }
             if(rectSide.side == Top)
             {

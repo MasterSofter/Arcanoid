@@ -33,7 +33,7 @@ class Game {
 
     Vector2i mousePosition;
     bool leftButtonPressed;
-
+    Vector2i mouseVelocity;
     const int iceObj = 0;
     const int gnomIceObj = 1;
     int _countAnimation = 0;
@@ -43,7 +43,7 @@ public:
     const list<Entity*>& getEntities() const;
     EntityPlayer* getPlayer();
     void createGameField();
-    void processInput();
+    void processInput(sf::Time dt);
     void update(sf::Time dt);
     void draw();
     //void animation(Entity* it);

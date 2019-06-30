@@ -15,7 +15,7 @@ int main() {
 
     float dt;
 
-    RenderWindow wnd(VideoMode(1600, 1000), "Ackanoid!");
+    RenderWindow wnd(VideoMode(1200, 700), "Ackanoid!");
     RecourceMng::Instance().Init();
 
     Game game(wnd);
@@ -34,7 +34,7 @@ int main() {
         {
             timeSinceLastUpdate -= timePerFrame;
 
-            game.processInput();
+            game.processInput(timePerFrame);
             game.update(timePerFrame);
         }
 

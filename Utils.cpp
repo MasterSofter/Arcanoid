@@ -66,7 +66,7 @@ bool Utils::IntersectRect(Vector2f start, Vector2f dir, FloatRect rect, RectSide
     if(points.size() == 0)
         return false;
 
-    assert(points.size() == 2);
+    //assert(points.size() == 2);
 
     Vector2f v1 = points[0] - start;
     Vector2f v2 = points[1] - start;
