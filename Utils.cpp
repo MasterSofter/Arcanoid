@@ -2,6 +2,7 @@
 #include <cmath>
 #include <vector>
 #include <cassert>
+#include "RectSideEnum.h"
 
 using namespace std;
 
@@ -26,9 +27,10 @@ bool Utils::IntersectLines(Vector2f start1, Vector2f end1, Vector2f start2, Vect
     return true;
 }
 
-bool Utils::IntersectRect(Vector2f start, Vector2f dir, FloatRect rect, Vector2f& pt)
+bool Utils::IntersectRect(Vector2f start, Vector2f dir, FloatRect rect, RectSide& rectSide)
 {
     Vector2f end = start + dir * 2000.f;
+
 
     Vector2f a = Vector2f(rect.left, rect.top);
     Vector2f b = Vector2f(rect.left + rect.width, rect.top);
@@ -70,9 +72,18 @@ bool Utils::IntersectRect(Vector2f start, Vector2f dir, FloatRect rect, Vector2f
     Vector2f v2 = points[1] - start;
 
     if(length(v1) < length(v2))
-        pt = points[0];
+        rectSide.pt = points[0];
     else
-        pt = points[1];
+        rectSide.pt = points[1];
+
+    if(rectSide.pt == pt1)
+        rectSide.side = RectSideEnum::Top;
+    if(rectSide.pt == pt2)
+        rectSide.side = RectSideEnum::Left;
+    if(rectSide.pt == pt3)
+        rectSide.side = RectSideEnum::Right;
+    if(rectSide.pt == pt4)
+        rectSide.side = RectSideEnum::Bottom;
 
     return true;
 }
@@ -86,3 +97,5 @@ Vector2f Utils::normalize(Vector2f vector)
 {
     return vector / length(vector);
 }
+
+

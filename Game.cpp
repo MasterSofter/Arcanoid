@@ -85,6 +85,7 @@ void Game::update(sf::Time dt) {
         return;
     }
 
+
     ball->update(dt);
 
 
