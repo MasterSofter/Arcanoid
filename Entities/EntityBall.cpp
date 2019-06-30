@@ -2,6 +2,7 @@
 #include "../Game.h"
 #include "../Utils.h"
 #include "../RectSide.h"
+#include <math.h>
 
 EntityBall::EntityBall(Game& game, const Vector2f& pos, const Vector2f& size)
         : Entity(game, pos, size, EnumTexture::Ball)
@@ -57,31 +58,34 @@ void EntityBall::update(sf::Time dt)
         Vector2f pt;
         if(Utils::IntersectRect(start, Utils::normalize(getVelocity()), collisionEntity->getRect(), rectSide))
         {
+            Vector2f pos = getPosition();
+
             if(rectSide.side == Left)
             {
-                _velocity = Vector2f(-_velocity.x,_velocity.y);
+                _velocity = Vector2f(-_velocity.x, _velocity.y);
+                pos.x -= pos.x + size().x - collisionEntity->getPosition().x + 1;
             }
             if(rectSide.side == Right)
             {
-                _velocity = Vector2f(-_velocity.x,_velocity.y + collisionEntity->getVelocity().y);
-
+                _velocity = Vector2f(-_velocity.x, _velocity.y + collisionEntity->getVelocity().y);
+                move(Vector2f(abs(collisionEntity->getPosition().x + collisionEntity->size().x - pos.x)+1, 0));
             }
             if(rectSide.side == Top)
             {
-                _velocity = Vector2f(_velocity.x,-_velocity.y);
+                _velocity = Vector2f(_velocity.x, -_velocity.y);
+                pos.y -= pos.y + size().y - collisionEntity->getPosition().y + 1;
             }
             if(rectSide.side == Bottom)
             {
-                _velocity = Vector2f(_velocity.x,-_velocity.y);
+                _velocity = Vector2f(_velocity.x, -_velocity.y);
+                pos.y += collisionEntity->getPosition().y + collisionEntity->size().y - pos.y + 1;
             }
         }
     }
-
 
     ///Расчитываем удар о стены
     if(getPosition().x < 0 || getPosition().x + size().x > wndSize.x)
         setVelocity(-_velocity.x, _velocity.y);
     else if(getPosition().y < 0 || getPosition().y + size().y > wndSize.y)
         setVelocity(_velocity.x, -_velocity.y);
-
 }
