@@ -89,7 +89,7 @@ void Entity::draw(RenderWindow &wnd) {
     rect.setOutlineThickness(1);
     rect.setOrigin(_sprite.getOrigin());
     rect.setPosition(getPosition());
-    wnd.draw(rect);
+    //wnd.draw(rect);
 //#endif
 }
 

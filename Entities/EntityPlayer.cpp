@@ -7,7 +7,7 @@ EntityPlayer::EntityPlayer(Game& game, const Vector2f& pos, const Vector2f& size
     //Vector2f sz = Vector2f(_sprite.getTexture()->getSize().x * _sprite.getScale().x,
             //_sprite.getTexture()->getSize().y * _sprite.getScale().y);
 
-    _sprite.setPosition(pos);
-    _sprite.setOrigin(size);
+    //_sprite.setPosition(pos);
+    //_sprite.setOrigin(Vector2f(0, (size/2.f).y));
 }
 

@@ -56,9 +56,8 @@ void Game::createGameField() {
     background = objectBuilder.createBackground(Vector2f(size.x, size.y));
     road = objectBuilder.createRoad(Vector2f(20, 0), Vector2f(100, size.y));
 
-    player = objectBuilder.createPlayer(Vector2f(20 + road->size().x/2, size.y/2), Vector2f(160, 170));
-    ball = objectBuilder.createBall(player->getPosition(), Vector2f(40, 40));
-    ball->setPosition(Vector2f(player->getPosition().x + player->size().x/2 + ball->size().x/2, player->getPosition().y));
+    player = objectBuilder.createPlayer(Vector2f(0, size.y/2), Vector2f(160, 170));
+    ball = objectBuilder.createBall(Vector2f(player->getPosition().x + player->size().x + 10, player->getPosition().y + player->size().y/2), Vector2f(40, 40));
 
     GameBuilder gameBuilder(this, Vector2f(size.x/2-75, 25), gameSize);
     gameBuilder.BuildObjectList(ice);
@@ -86,13 +85,13 @@ void Game::processInput()
 void Game::update(sf::Time dt) {
     _countAnimation++;
 
-    player->move(Vector2f(player->getPosition().x, mousePosition.y) - player->getPosition());
+    player->move(Vector2f(player->getPosition().x, mousePosition.y - player->size().y/2) - player->getPosition());
 
     if (leftButtonPressed == true) { gameStarted = true; }
 
     if (!gameStarted)
     {
-        ball->setPosition(Vector2f(player->getPosition().x + player->size().x/2 + ball->size().x/2, player->getPosition().y));
+        ball->setPosition(Vector2f(player->getPosition().x + player->size().x + 20, player->getPosition().y + player->size().y/2 - ball->size().y/4));
         return;
     }
 
