@@ -31,7 +31,6 @@ bool Utils::IntersectRect(Vector2f start, Vector2f dir, FloatRect rect, RectSide
 {
     Vector2f end = start + dir * 2000.f;
 
-
     Vector2f a = Vector2f(rect.left, rect.top);
     Vector2f b = Vector2f(rect.left + rect.width, rect.top);
     Vector2f c = Vector2f(rect.left, rect.top + rect.height);
@@ -44,23 +43,18 @@ bool Utils::IntersectRect(Vector2f start, Vector2f dir, FloatRect rect, RectSide
     Vector2f pt3  = zero;
     Vector2f pt4  = zero;
 
-    IntersectLines(start, end, a, b, pt1);
-    IntersectLines(start, end, a, c, pt2);
-    IntersectLines(start, end, b, d, pt3);
-    IntersectLines(start, end, c, d, pt4);
-
     vector<Vector2f> points;
 
-    if(pt1 != zero)
+    if(IntersectLines(start, end, a, b, pt1))
         points.push_back(pt1);
 
-    if(pt2 != zero)
+    if(IntersectLines(start, end, a, c, pt2))
         points.push_back(pt2);
 
-    if(pt3 != zero)
+    if(IntersectLines(start, end, b, d, pt3))
         points.push_back(pt3);
 
-    if(pt4 != zero)
+    if(IntersectLines(start, end, c, d, pt4))
         points.push_back(pt4);
 
     if(points.size() == 0)
