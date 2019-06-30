@@ -11,3 +11,10 @@ EntityPlayer::EntityPlayer(Game& game, const Vector2f& pos, const Vector2f& size
     //_sprite.setOrigin(Vector2f(0, (size/2.f).y));
 }
 
+void EntityPlayer::attack()
+{
+    _game.play(SoundKnock);
+}
+
+
+

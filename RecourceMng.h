@@ -3,7 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
+#include <SFML/Audio.hpp>
 #include "EnumTexture.h"
+#include "EnumSound.h"
 #include <map>
 
 using namespace sf;
@@ -13,7 +15,7 @@ private:
     RecourceMng();
 
     std::map<EnumTexture, Texture*> textures;
-
+    std::map<EnumSound, SoundBuffer*> sounds;
 public:
     static RecourceMng& Instance()
     {
@@ -23,7 +25,7 @@ public:
 
     void Init();
     const Texture& GetTexture(EnumTexture texture);
-
+    const SoundBuffer& GetSound(EnumSound sound);
 };
 
 

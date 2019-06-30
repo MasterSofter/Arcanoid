@@ -63,6 +63,12 @@ void Game::createGameField() {
     gameBuilder.BuildObjectList(ice);
 }
 
+void Game::play(EnumSound soundId)
+{
+    _sounds.push_back(new Sound(RecourceMng::Instance().GetSound(soundId)));
+    _sounds.back()->play();
+}
+
 const list<Entity*>& Game::getEntities() const
 {
     return ice;
@@ -97,6 +103,33 @@ void Game::update(sf::Time dt) {
 
     ball->update(dt);
 
+    /// удалить лишние объекты
+    list<Entity*> destroyed;
+    for(list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
+    {
+        if((*it)->destroyed())
+            destroyed.push_back(*it);
+    }
+
+    for(list<Entity*>::iterator it = destroyed.begin(); it != destroyed.end(); it++)
+    {
+        delete *it;
+        ice.remove(*it);
+    }
+
+    /// удалить законившиеся звуки
+    list<Sound*> delsounds;
+    for(list<Sound*>::iterator it = _sounds.begin(); it != _sounds.end(); it++)
+    {
+        if((*it)->getStatus() == sf::Sound::Stopped)
+            delsounds.push_back(*it);
+    }
+
+    for(list<Sound*>::iterator it = delsounds.begin(); it != delsounds.end(); it++)
+    {
+        delete *it;
+        _sounds.remove(*it);
+    }
 /*
     player->setPosition(Vector2f(player->getPosition().x - player->size().x/2,player->getPosition().y - player->size().y/2));
 

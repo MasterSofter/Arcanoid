@@ -10,6 +10,7 @@
 #include "Entities/Entity.h"
 #include "Entities/EntityBall.h"
 #include "Entities/EntityPlayer.h"
+#include "EnumSound.h"
 #include <list>
 
 using namespace sf;
@@ -28,6 +29,7 @@ class Game {
     Vector2u _size = wnd.getSize();
     list<Entity*> ice;
     list<Entity*> _listObj;
+    list<Sound*> _sounds;
 
     Vector2i mousePosition;
     bool leftButtonPressed;
@@ -46,6 +48,7 @@ public:
     void draw();
     //void animation(Entity* it);
     void randomGanerate();
+    void play(EnumSound sound);
 
 public:
     Game(RenderWindow& wnd);

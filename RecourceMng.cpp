@@ -2,6 +2,7 @@
 #include <string>
 
 using namespace std;
+using namespace sf;
 
 RecourceMng::RecourceMng()
 {
@@ -33,9 +34,30 @@ void RecourceMng::Init()
         texture->loadFromFile(files[i].second);
         textures[files[i].first] = texture;
     }
+
+    ///Загрузка звуков
+    std::pair<EnumSound , string> soundfiles[] =
+    {
+        {EnumSound::SoundKnock,        "sounds/knock.wav"},
+        {EnumSound::SoundIceKnock,     "sounds/IceKnock.wav"},
+        {EnumSound::SoundReflectIce,   "sounds/Ice01.wav"},
+        {EnumSound::SoundIceDestroyed, "sounds/ice02.wav"},
+        {EnumSound::SoundPlayer,       "sounds/iron.wav"}
+    };
+
+    for(int i = 0; i < sizeof(soundfiles)/sizeof(soundfiles[0]); i++)
+    {
+        SoundBuffer* buffer = new SoundBuffer(); // this buffer is local to the function, it will be destroyed...
+        buffer->loadFromFile(soundfiles[i].second);
+        sounds[soundfiles[i].first] = buffer;
+    }
 }
 
 const Texture& RecourceMng::GetTexture(EnumTexture texture)
 {
     return *(textures[texture]);
+}
+const SoundBuffer& RecourceMng::GetSound(EnumSound sound)
+{
+    return *(sounds[sound]);
 }

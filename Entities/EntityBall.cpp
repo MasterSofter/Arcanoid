@@ -46,7 +46,6 @@ void EntityBall::update(sf::Time dt)
             collisionEntity = player;
     }
 
-
     //Если пересечение есть
     if(collisionEntity != nullptr)
     {

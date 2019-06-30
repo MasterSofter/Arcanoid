@@ -30,7 +30,7 @@ void GameBuilder::BuildObjectList(list<Entity*>& list)
             Vector2f pos = position + Vector2f(5,5);
             Vector2f size = Vector2f(dx-10, dy-10);
 
-            switch (GameField_01[j][i])
+            switch (GameField_01[i][j])
             {
                 case 1:
                     list.push_back(objectBuilder.createIce(pos, size));

@@ -45,7 +45,6 @@ class GameBuilder {
 public:
     GameBuilder(Game* game, Vector2f origin, Vector2f size);
     void  BuildObjectList(list<Entity*>& list);
-    void DeleteObject(list<Entity*>::iterator& it);
 };
 
 

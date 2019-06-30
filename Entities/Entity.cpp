@@ -7,7 +7,7 @@
 #include "../Game.h"
 
 Entity::Entity(Game& game, const Vector2f& pos, const Vector2f& size, EnumTexture enumTexture)
-    : _game(game), _size(size), _health(1)
+    : _game(game), _size(size), _health(1), _destroyed(false)
 {
     const Texture& texture = RecourceMng::Instance().GetTexture(enumTexture);
     _sprite.setTexture(texture);
@@ -19,6 +19,11 @@ Entity::Entity(Game& game, const Vector2f& pos, const Vector2f& size, EnumTextur
 
 bool Entity::exist() const {
     return _health > 0;
+}
+
+bool Entity::destroyed() const
+{
+    return _destroyed;
 }
 
 Sound* Entity::sound() {

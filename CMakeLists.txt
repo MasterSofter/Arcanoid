@@ -64,7 +64,7 @@ set (SRC
 		Entities/EntityIceWithGnom.cpp
 		Entities/EntityBall.cpp
 		Entities/EntityPlayer.cpp
-		Utils.cpp)
+		Utils.cpp EnumSound.h)
 
 
 add_executable(${APP_NAME} ${SRC})

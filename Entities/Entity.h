@@ -19,7 +19,7 @@ class Entity {
 protected:
     Sprite _sprite;
     int _name;
-
+    bool _destroyed;
     Vector2f _size;
     int _health;
     sf::Vector2f _velocity;
@@ -51,6 +51,7 @@ public:
     int getName();
     void setName(int id);
     bool exist() const;
+    bool destroyed() const;
 
     virtual void update(sf::Time dt);
     virtual void attack();
