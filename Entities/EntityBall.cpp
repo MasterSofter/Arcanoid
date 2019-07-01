@@ -56,19 +56,20 @@ void EntityBall::update(sf::Time dt)
     {
 
 
-        if ( getRect().intersects((*it)->getRect()) && attacks == false)
+        if ( (*it)->collision(this) && attacks == false)
         {
             (*it)->attack();
             attacks = true;
 
-            dx = -dx;
+            _velocity.x = -_velocity.x;
             float old_dy = dy;
 
-            dy = rand()%2;
+            _velocity.y = rand()%100;
+            dy = _velocity.y * dt.asSeconds();
             if(old_dy > 0 && dy < 0)
-                dy = -dy;
+                _velocity.y = -_velocity.y;
             else if(old_dy < 0 && dy > 0)
-                dy = -dy;
+                _velocity.y = -_velocity.y;
 
 
             break;
@@ -83,19 +84,20 @@ void EntityBall::update(sf::Time dt)
     {
 
 
-        if ( getRect().intersects((*it)->getRect()) && attacks == false)
+        if ( (*it)->collision(this) && attacks == false)
         {
             (*it)->attack();
             attacks = true;
 
-            dy = -dy;
+            _velocity.y = -_velocity.y;
             float old_dx = dx;
 
-            dx = rand()%2;
+            _velocity.x = rand()%100;
+            dx = _velocity.y * dt.asSeconds();
             if(old_dx > 0 && dx < 0)
-                dx = -dx;
+                _velocity.x = -_velocity.x;
             else if(old_dx < 0 && dx > 0)
-                dx = -dx;
+                _velocity.x = -_velocity.x;
 
 
 
@@ -118,24 +120,25 @@ void EntityBall::update(sf::Time dt)
         {
             if(_velocity.x < 0)
                 _velocity.x = -_velocity.x;
+            _velocity.y = _velocity.y + player->getVelocity().y;
         }
-        _velocity.y = _velocity.y + player->getVelocity().y;
+
     }
-/*
-    if(_velocity.y > 0 && _velocity.y < 400 || _velocity.y > 600)
-        _velocity.y = 600;
-    if(_velocity.y < 0 && _velocity.y > -400 || _velocity.y < -600)
-        _velocity.y = -600;
-    if(_velocity.x > 0 && _velocity.x < 400 || _velocity.x > 600)
-        _velocity.x = 600;
-    if(_velocity.x < 0 && _velocity.x > -400 ||  _velocity.x < -600)
-        _velocity.x = -600;
-*/
+
+    if(_velocity.y > 0 && _velocity.y < 200 || _velocity.y > 600)
+        _velocity.y = 200;
+    if(_velocity.y < 0 && _velocity.y > -200 || _velocity.y < -600)
+        _velocity.y = -200;
+    if(_velocity.x > 0 && _velocity.x < 200 || _velocity.x > 600)
+        _velocity.x = 200;
+    if(_velocity.x < 0 && _velocity.x > -200 ||  _velocity.x < -600)
+        _velocity.x = -200;
+
     ///Расчитываем удар о стены
     if(getPosition().x < 0 || getPosition().x + size().x > wndSize.x)
-        setVelocity(-_velocity.x, _velocity.y + rand()%400);
+        setVelocity(-_velocity.x, _velocity.y);
     else if(getPosition().y < 0 || getPosition().y + size().y > wndSize.y)
-        setVelocity(_velocity.x + rand()%400, -_velocity.y);
+        setVelocity(_velocity.x, -_velocity.y);
 
 
 
