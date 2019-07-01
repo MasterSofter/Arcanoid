@@ -92,6 +92,7 @@ void Game::processInput(sf::Time dt)
 void Game::update(sf::Time dt) {
     _countAnimation++;
 
+    Vector2u wndSize = wnd.getSize();
     player->move(Vector2f(player->getPosition().x, mousePosition.y - player->size().y/2) - player->getPosition());
     player->setVelocity(Vector2f(mouseVelocity.x,mouseVelocity.y));
 
@@ -100,6 +101,19 @@ void Game::update(sf::Time dt) {
     if (!gameStarted)
     {
         ball->setPosition(Vector2f(player->getPosition().x + player->size().x, player->getPosition().y + player->size().y/2 - ball->size().y/4));
+        if(player->getPosition().y < 0)
+        {
+            player->setPosition(Vector2f(player->getPosition().x,0));
+            ball->setPosition(Vector2f(player->getPosition().x + player->size().x, player->getPosition().y + player->size().y/2 - ball->size().y/4));
+
+        }
+
+        if(player->getPosition().y + player->size().y > wndSize.y)
+        {
+            player->setPosition(Vector2f(player->getPosition().x,wndSize.y - player->size().y));
+            ball->setPosition(Vector2f(player->getPosition().x + player->size().x, player->getPosition().y + player->size().y/2 - ball->size().y/4));
+        }
+
         return;
     }
 
@@ -132,69 +146,7 @@ void Game::update(sf::Time dt) {
         delete *it;
         _sounds.remove(*it);
     }
-/*
-    player->setPosition(Vector2f(player->getPosition().x - player->size().x/2,player->getPosition().y - player->size().y/2));
 
-
-    if(ball->getRect().intersects(player->getRect()) && dx < 0.f)
-    {
-        dx = -dx;
-    }
-
-
-    ball->move(Vector2f(0, dy));
-    for (list<Entity*>::iterator it = ice.begin(); it != ice.end(); it++)
-    {
-
-        animation(*it);
-
-        if ( ball->getRect().intersects((*it)->getRect()) && (*it)->exist)
-        {
-
-            if((*it)->getHealth() < 2)
-            {(*it)->setHealth((*it)->getHealth()+1);}
-            else
-            {
-                if((*it)->getName() == iceObj)
-                    (*it)->setPosition(Vector2f(-10000,0));
-                if((*it)->getName() == gnomIceObj && (*it)->getHealth() == 2) {
-                    (*it)->exist = false;
-                }
-            }
-
-            ObjectBuilder objectBuilder;
-
-            if((*it)->getName() == iceObj)
-                (*it)->setTexture(*(objectBuilder.CreateObject(iceObj,(*it)->getHealth(),(*it)->getPosition(),(*it)->size())->getTexture()));
-            else if((*it)->getName() == gnomIceObj)
-            {
-                (*it)->setTexture(*(objectBuilder.CreateObject(gnomIceObj,(*it)->getHealth(),(*it)->getPosition(),(*it)->size())->getTexture()));
-
-            }
-            dy = -dy;
-            float old_dx = dx;
-
-            dx = rand()%3+1;
-            if(old_dx > 0 && dx < 0)
-                dx = -dx;
-            else if(old_dx < 0 && dx > 0)
-                dx = -dx;
-
-
-            if(dx > 0 && dx < 2){dx = 2;}
-            else if(dx < 0 && dx > -2){dx = -2;}
-
-            break;
-        }
-    }
-
-    if(ball->getRect().intersects(player->getRect())&& attack == false)
-    {
-        dy = -dy;
-    }
-
-    player->setPosition(Vector2f(player->getPosition().x + player->size().x/2,player->getPosition().y + player->size().y/2));
-    */
 }
 
 void Game::draw()

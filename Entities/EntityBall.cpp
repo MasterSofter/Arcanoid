@@ -29,23 +29,13 @@ void EntityBall::update(sf::Time dt)
     RectSide rectSide;
     Vector2u wndSize = _game.getWindow().getSize();
 
-    cout << wndSize.y << endl;
+    //cout << wndSize.y << endl;
 
 
     move(_velocity * dt.asSeconds());
 
     /// найдем пересечение мяча и какого-либо объекта
     const list<Entity*>& ents = _game.getEntities();
-
-    Entity* collisionEntity = nullptr;
-    for (list<Entity*>::const_iterator it = ents.begin(); it != ents.end(); it++)
-    {
-        if ((*it)->collision(this))
-        {
-            collisionEntity = *it;
-            break;
-        }
-    }
 
 
     float dx =_velocity.x * dt.asSeconds();
@@ -127,6 +117,11 @@ if(player->collision(this))
     }
 }
 
+
+    if(player->getPosition().y < 0)
+        player->setPosition(Vector2f(player->getPosition().x,0));
+    if(player->getPosition().y + player->size().y > wndSize.y)
+        player->setPosition(Vector2f(player->getPosition().x,wndSize.y - player->size().y));
 
     if(_velocity.y > 0 && _velocity.y < 200 || _velocity.y > 600)
         _velocity.y = 200;

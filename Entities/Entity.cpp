@@ -91,10 +91,11 @@ void Entity::draw(RenderWindow &wnd) {
     sf::RectangleShape rect;
     rect.setSize(size());
     rect.setOutlineColor(sf::Color::Red);
-    rect.setOutlineThickness(1);
+    rect.setOutlineThickness(4);
     rect.setOrigin(_sprite.getOrigin());
     rect.setPosition(getPosition());
-    //wnd.draw(rect);
+    rect.setFillColor(Color(0, 0, 0, 256));
+    wnd.draw(rect);
 //#endif
 }
 
