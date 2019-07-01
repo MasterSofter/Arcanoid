@@ -28,6 +28,7 @@ protected:
 public:
     Entity(Game& game, const Vector2f& pos, const Vector2f& size, EnumTexture enumTexture);
 
+    bool exists = true;
     Sound* sound();
     void animation();
     void setPosition(Vector2f pos);

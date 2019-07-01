@@ -99,7 +99,7 @@ void Game::update(sf::Time dt) {
 
     if (!gameStarted)
     {
-        ball->setPosition(Vector2f(player->getPosition().x + player->size().x + 10, player->getPosition().y + player->size().y/2 - ball->size().y/4));
+        ball->setPosition(Vector2f(player->getPosition().x + player->size().x + 20, player->getPosition().y + player->size().y/2 - ball->size().y/4));
         return;
     }
 
