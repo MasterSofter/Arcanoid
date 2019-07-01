@@ -111,12 +111,13 @@ void EntityBall::update(sf::Time dt)
 
     EntityPlayer* player = _game.getPlayer();
     ///Расчитываем удар о тележку
-
+if(player->collision(this))
+{
     if(getPosition().x < player->getPosition().x + player->size().x)
     {
         ///Расчет удара о тележку сбоку
         if(getPosition().y > player->getPosition().y && getPosition().y < player->getPosition().y + player->size().y ||
-        getPosition().y + size().y > player->getPosition().y && getPosition().y + size().y < player->getPosition().y + player->size().y)
+           getPosition().y + size().y > player->getPosition().y && getPosition().y + size().y < player->getPosition().y + player->size().y)
         {
             if(_velocity.x < 0)
                 _velocity.x = -_velocity.x;
@@ -124,6 +125,8 @@ void EntityBall::update(sf::Time dt)
         }
 
     }
+}
+
 
     if(_velocity.y > 0 && _velocity.y < 200 || _velocity.y > 600)
         _velocity.y = 200;
