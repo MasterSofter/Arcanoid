@@ -23,7 +23,7 @@ int main() {
 
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
-    sf::Time timePerFrame = sf::seconds(1.f/60.f);
+    sf::Time timePerFrame = sf::seconds(1.f/200.f);
 
     while (wnd.isOpen())
     {

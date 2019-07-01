@@ -63,19 +63,23 @@ void EntityBall::update(sf::Time dt)
             if(rectSide.side == Left)
             {
                 _velocity.x = -_velocity.x;
+                _velocity.y = _velocity.y + rand()%200;
             }
             if(rectSide.side == Right)
             {
                 _velocity.x = -_velocity.x;
+                _velocity.y = _velocity.y + rand()%200;
             }
 
             if(rectSide.side == Top)
             {
                 _velocity.y =  -_velocity.y;
+                _velocity.x = _velocity.x + rand()%200;
             }
             if(rectSide.side == Bottom)
             {
                 _velocity.y =  -_velocity.y;
+                _velocity.x = _velocity.x + rand()%200;
             }
         }
     }
@@ -96,16 +100,20 @@ void EntityBall::update(sf::Time dt)
         _velocity.y = _velocity.y + player->getVelocity().y;
     }
 
-    if(_velocity.y > 200)
-        _velocity.y = 200;
-    if(_velocity.y < -200)
-        _velocity.y = -200;
+    if(_velocity.y > 0 && _velocity.y < 400 || _velocity.y > 600)
+        _velocity.y = 600;
+    if(_velocity.y < 0 && _velocity.y > -400 || _velocity.y < -600)
+        _velocity.y = -600;
+    if(_velocity.x > 0 && _velocity.x < 400 || _velocity.x > 600)
+        _velocity.x = 600;
+    if(_velocity.x < 0 && _velocity.x > -400 ||  _velocity.x < -600)
+        _velocity.x = -600;
 
     ///Расчитываем удар о стены
     if(getPosition().x < 0 || getPosition().x + size().x > wndSize.x)
-        setVelocity(-_velocity.x, _velocity.y);
+        setVelocity(-_velocity.x, _velocity.y + rand()%400);
     else if(getPosition().y < 0 || getPosition().y + size().y > wndSize.y)
-        setVelocity(_velocity.x, -_velocity.y);
+        setVelocity(_velocity.x + rand()%400, -_velocity.y);
 
 
 
