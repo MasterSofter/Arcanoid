@@ -18,7 +18,7 @@ Entity::Entity(Game& game, const Vector2f& pos, const Vector2f& size, EnumTextur
 }
 
 bool Entity::exist() const {
-    return _health > 0;
+    return _health >= 0;
 }
 
 bool Entity::destroyed() const
@@ -95,7 +95,7 @@ void Entity::draw(RenderWindow &wnd) {
     rect.setOrigin(_sprite.getOrigin());
     rect.setPosition(getPosition());
     rect.setFillColor(Color(0, 0, 0, 256));
-    wnd.draw(rect);
+    //wnd.draw(rect);
 //#endif
 }
 
