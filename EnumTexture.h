@@ -15,7 +15,13 @@ enum EnumTexture
     Gnom1,
     Gnom2,
     Gnom3,
-    Background
+    Background,
+    IceDestroyed1,
+    IceDestroyed2,
+    IceDestroyed3,
+    IceDestroyed4,
+    IceDestroyed5
+
 };
 
 #endif //ARCANOID_ENUMTEXTURE_H

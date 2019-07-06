@@ -18,7 +18,7 @@ Entity::Entity(Game& game, const Vector2f& pos, const Vector2f& size, EnumTextur
 }
 
 bool Entity::exist() const {
-    return _health >= 0;
+    return _health >= 1;
 }
 
 bool Entity::destroyed() const

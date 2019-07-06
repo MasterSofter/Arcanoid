@@ -41,21 +41,26 @@ public:
     sf::Vector2f getVelocity() const;
     bool collision(Entity* ent);
 
-    //Sprite* getSprite();
     FloatRect getRect() const;
     void move(Vector2f offset);
-    void setScale(Vector2f scale);
-    void setOrigin(Vector2f pos);
+
     void draw(RenderWindow& wnd);
+
     int getHealth();
     void setHealth(int id);
-    int getName();
-    void setName(int id);
+
     bool exist() const;
+    virtual void attack();
     bool destroyed() const;
 
     virtual void update(sf::Time dt);
-    virtual void attack();
+
+
+    void setScale(Vector2f scale);
+    void setOrigin(Vector2f pos);
+    int getName();
+    void setName(int id);
+
 };
 
 

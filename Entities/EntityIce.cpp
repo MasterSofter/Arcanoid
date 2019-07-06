@@ -22,9 +22,11 @@ void EntityIce::attack() {
         case 1:
             _sprite.setTexture(RecourceMng::Instance().GetTexture(Ice3));
         break;
+        case 0:
+            _destroyed = true;
 
     }
-    if(_health <= 0)
+    if(_health < -5 )
     {
         _destroyed = true;
     }

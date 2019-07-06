@@ -25,6 +25,8 @@ void EntityBall::attack()
 
 void EntityBall::update(sf::Time dt)
 {
+    EntityPlayer* player = _game.getPlayer();
+    player->setHealth(1);
     attacks = false;
     RectSide rectSide;
     Vector2u wndSize = _game.getWindow().getSize();
@@ -45,7 +47,7 @@ void EntityBall::update(sf::Time dt)
     {
 
 
-        if ( (*it)->collision(this) && attacks == false)
+        if ( (*it)->collision(this) && attacks == false && (*it)->exist())
         {
 
 
@@ -55,7 +57,7 @@ void EntityBall::update(sf::Time dt)
             _velocity.x = -_velocity.x;
             float old_dy = dy;
 
-            _velocity.y = rand()%50;
+            //_velocity.y = rand()%50;
             dy = _velocity.y * dt.asSeconds();
             if(old_dy > 0 && dy < 0)
                 _velocity.y = -_velocity.y;
@@ -73,7 +75,7 @@ void EntityBall::update(sf::Time dt)
     {
 
 
-        if ( (*it)->collision(this) && attacks == false)
+        if ( (*it)->collision(this) && attacks == false && (*it)->exist())
         {
 
             (*it)->attack();
@@ -82,7 +84,7 @@ void EntityBall::update(sf::Time dt)
             _velocity.y = -_velocity.y;
             float old_dx = dx;
 
-            _velocity.x = rand()%50;
+            //_velocity.x = rand()%50;
             dx = _velocity.y * dt.asSeconds();
             if(old_dx > 0 && dx < 0)
                 _velocity.x = -_velocity.x;
@@ -99,7 +101,7 @@ void EntityBall::update(sf::Time dt)
 
 
 
-    EntityPlayer* player = _game.getPlayer();
+
     ///Расчитываем удар о тележку
 if(player->collision(this))
 {

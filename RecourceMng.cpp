@@ -26,6 +26,12 @@ void RecourceMng::Init()
         {EnumTexture::Gnom1,        "textures/gnom_ice_04.png"},
         {EnumTexture::Gnom2,        "textures/gnom_ice_05.png"},
         {EnumTexture::Gnom3,        "textures/gnom_ice_06.png"},
+        {EnumTexture::IceDestroyed1,"textures/iceDestroyed_01.png"},
+        {EnumTexture::IceDestroyed2,"textures/iceDestroyed_02.png"},
+        {EnumTexture::IceDestroyed3,"textures/iceDestroyed_03.png"},
+        {EnumTexture::IceDestroyed4,"textures/iceDestroyed_04.png"},
+        {EnumTexture::IceDestroyed5,"textures/iceDestroyed_05.png"},
+
     };
 
     for(int i = 0; i < sizeof(files)/sizeof(files[0]); i++)
