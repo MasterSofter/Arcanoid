@@ -9,6 +9,7 @@ class EntityIce : public Entity{
 public:
     EntityIce(Game& game, const Vector2f& pos, const Vector2f& size);
     virtual void attack();
+    virtual void switchToState(EnumStates state);
 };
 
 

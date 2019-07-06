@@ -64,7 +64,14 @@ set (SRC
 		Entities/EntityIceWithGnom.cpp
 		Entities/EntityBall.cpp
 		Entities/EntityPlayer.cpp
-		Utils.cpp EnumSound.h)
+		Utils.cpp
+		EnumSound.h
+		Entities/States/EnumStates.h
+		Entities/States/BaseEntityState.cpp
+		Entities/States/EntityAliveState.cpp
+		Entities/States/EntityDyingState.cpp
+		Entities/States/EntityDestroyedState.cpp
+		Entities/States/EntityDestroyedState.h)
 
 
 add_executable(${APP_NAME} ${SRC})

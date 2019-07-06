@@ -8,49 +8,35 @@
 using  namespace std;
 
 EntityBall::EntityBall(Game& game, const Vector2f& pos, const Vector2f& size)
-        : Entity(game, pos, size, EnumTexture::Ball)
+        : Entity(game, pos, size, Ball)
 {
 }
-
+/*
 void EntityBall::attack()
 {
-    if(_health <= 0) return;
-
-    _health--;
-
-    if(_health > 0) {
-
-    }
 }
-
+*/
 void EntityBall::update(sf::Time dt)
 {
     EntityPlayer* player = _game.getPlayer();
-    player->setHealth(1);
+    //player->setHealth(1);
     attacks = false;
-    RectSide rectSide;
+    //RectSide rectSide;
     Vector2u wndSize = _game.getWindow().getSize();
-
 
     move(_velocity * dt.asSeconds());
 
     /// найдем пересечение мяча и какого-либо объекта
     const list<Entity*>& ents = _game.getEntities();
 
-
     float dx =_velocity.x * dt.asSeconds();
     float dy =_velocity.y * dt.asSeconds();
-
 
     move(Vector2f(dx, 0));
     for (list<Entity*>::const_iterator it = ents.begin(); it != ents.end(); it++)
     {
-
-
         if ( (*it)->collision(this) && attacks == false && (*it)->exist())
         {
-
-
             (*it)->attack();
             attacks = true;
 
@@ -64,20 +50,16 @@ void EntityBall::update(sf::Time dt)
             else if(old_dy < 0 && dy > 0)
                 _velocity.y = -_velocity.y;
 
-
             break;
         }
     }
 
-
     move(Vector2f(0, dy));
+
     for (list<Entity*>::const_iterator it = ents.begin(); it != ents.end(); it++)
     {
-
-
         if ( (*it)->collision(this) && attacks == false && (*it)->exist())
         {
-
             (*it)->attack();
             attacks = true;
 
@@ -90,35 +72,25 @@ void EntityBall::update(sf::Time dt)
                 _velocity.x = -_velocity.x;
             else if(old_dx < 0 && dx > 0)
                 _velocity.x = -_velocity.x;
-
-
-
             break;
         }
-
     }
-
-
-
-
 
     ///Расчитываем удар о тележку
-if(player->collision(this))
-{
-    if(getPosition().x < player->getPosition().x + player->size().x)
+    if(player->collision(this))
     {
-        ///Расчет удара о тележку сбоку
-        if(getPosition().y > player->getPosition().y && getPosition().y < player->getPosition().y + player->size().y ||
-           getPosition().y + size().y > player->getPosition().y && getPosition().y + size().y < player->getPosition().y + player->size().y)
+        if(getPosition().x < player->getPosition().x + player->size().x)
         {
-            if(_velocity.x < 0)
-                _velocity.x = -_velocity.x;
-            _velocity.y = _velocity.y + player->getVelocity().y;
+            ///Расчет удара о тележку сбоку
+            if(getPosition().y > player->getPosition().y && getPosition().y < player->getPosition().y + player->size().y ||
+               getPosition().y + size().y > player->getPosition().y && getPosition().y + size().y < player->getPosition().y + player->size().y)
+            {
+                if(_velocity.x < 0)
+                    _velocity.x = -_velocity.x;
+                _velocity.y = _velocity.y + player->getVelocity().y;
+            }
         }
-
     }
-}
-
 
     if(player->getPosition().y < 0)
         player->setPosition(Vector2f(player->getPosition().x,0));
@@ -139,7 +111,4 @@ if(player->collision(this))
         setVelocity(-_velocity.x, _velocity.y);
     else if(getPosition().y < 0 || getPosition().y + size().y > wndSize.y)
         setVelocity(_velocity.x, -_velocity.y);
-
-
-
 }

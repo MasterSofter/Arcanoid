@@ -3,6 +3,7 @@
 
 enum EnumTexture
 {
+    None,
     Ice1,
     Ice2,
     Ice3,
@@ -21,7 +22,6 @@ enum EnumTexture
     IceDestroyed3,
     IceDestroyed4,
     IceDestroyed5
-
 };
 
 #endif //ARCANOID_ENUMTEXTURE_H

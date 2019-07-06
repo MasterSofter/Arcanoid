@@ -13,21 +13,19 @@ ObjectBuilder::ObjectBuilder(Game& game)
 
 Entity* ObjectBuilder::createBackground(const Vector2f& size)
 {
-    Entity* background = new Entity(_game, Vector2f(0,0), size, EnumTexture::Background);
+    Entity* background = new Entity(_game, Vector2f(0,0), size, EnumTexture::Background, EnumStates::StateNothing);
     //background->setScale(Vector2f(0.6, 0.7));
     return background;
 }
 
 EntityIce* ObjectBuilder::createIce(const Vector2f& pos, const Vector2f& size) {
     EntityIce* ent = new EntityIce(_game, pos, size);
-    ent->setHealth(3);
     return ent;
 }
 
 EntityIceWithGnom* ObjectBuilder::createIceWithGnom(const Vector2f& pos, const Vector2f& size)
 {
     EntityIceWithGnom* ent = new EntityIceWithGnom(_game, pos, size);
-    ent->setHealth(3);
     return ent;
 }
 

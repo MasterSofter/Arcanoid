@@ -9,8 +9,7 @@
 
 class EntityAliveState : public BaseEntityState  {
 public:
-    EntityAliveState(Entity* parent);
-    virtual void draw();
+    EntityAliveState(Entity* parent, EnumTexture enumTexture, EnumStates nextState);
     virtual void update(sf::Time dt);
 };
 
