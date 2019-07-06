@@ -5,10 +5,12 @@
 #include "Entity.h"
 #include "../RecourceMng.h"
 #include "../Game.h"
+#include "EntityAliveState.h"
 
 Entity::Entity(Game& game, const Vector2f& pos, const Vector2f& size, EnumTexture enumTexture)
     : _game(game), _size(size), _health(1), _destroyed(false)
 {
+    _state = new EntityAliveState(this);
     const Texture& texture = RecourceMng::Instance().GetTexture(enumTexture);
     _sprite.setTexture(texture);
 
@@ -71,6 +73,7 @@ void Entity::move(Vector2f offset)
 
 void Entity::update(sf::Time dt)
 {
+    _state->update(dt);
     move(_velocity * dt.asSeconds());
 }
 

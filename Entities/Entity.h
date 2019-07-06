@@ -10,20 +10,24 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include "../EnumTexture.h"
+#include "BaseEntityState.h"
 
 using namespace sf;
 
 class Game;
 
+
 class Entity {
 protected:
+    Game& _game;
+    BaseEntityState* _state;
+
     Sprite _sprite;
     int _name;
     bool _destroyed;
     Vector2f _size;
     int _health;
     sf::Vector2f _velocity;
-    Game& _game;
 
 public:
     Entity(Game& game, const Vector2f& pos, const Vector2f& size, EnumTexture enumTexture);
@@ -44,7 +48,7 @@ public:
     FloatRect getRect() const;
     void move(Vector2f offset);
 
-    void draw(RenderWindow& wnd);
+
 
     int getHealth();
     void setHealth(int id);
@@ -53,6 +57,7 @@ public:
     virtual void attack();
     bool destroyed() const;
 
+    void draw(RenderWindow& wnd);
     virtual void update(sf::Time dt);
 
 
