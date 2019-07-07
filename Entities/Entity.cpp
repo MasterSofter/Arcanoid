@@ -11,6 +11,7 @@ Entity::Entity(Game& game, const Vector2f& pos, const Vector2f& size, EnumTextur
     : _game(game), _size(size), _destroyed(false)
 {
     _state = new EntityAliveState(this, texture, nextState);
+    setPosition(pos);
 }
 
 void Entity::switchToState(EnumStates state)

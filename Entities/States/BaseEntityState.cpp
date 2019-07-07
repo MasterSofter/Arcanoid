@@ -9,12 +9,14 @@
 BaseEntityState::BaseEntityState(Entity* parent, EnumTexture enumTexture, EnumStates nextState):
     _parent(parent), _health(1), _nextState(nextState)
 {
-    const Texture& texture = RecourceMng::Instance().GetTexture(enumTexture);
-    _sprite.setTexture(texture);
+    if(enumTexture != None) {
+        const Texture &texture = RecourceMng::Instance().GetTexture(enumTexture);
+        _sprite.setTexture(texture);
 
-    Vector2u ts = texture.getSize();
-    _sprite.setScale(_parent->size().x/ts.x, _parent->size().y/ts.y);
-    _sprite.setPosition(_parent->getPosition());
+        Vector2u ts = texture.getSize();
+        _sprite.setScale(_parent->size().x / ts.x, _parent->size().y / ts.y);
+        _sprite.setPosition(_parent->getPosition());
+    }
 }
 
 void BaseEntityState::draw(RenderWindow& wnd) {
@@ -47,23 +49,5 @@ Vector2f BaseEntityState::getPosition() const {
 
 void BaseEntityState::attack()
 {
-    /*
-    _health--;
-
-    switch(_health){
-        case 2:
-            _sprite.setTexture(RecourceMng::Instance().GetTexture(Ice2));
-            break;
-        case 1:
-            _sprite.setTexture(RecourceMng::Instance().GetTexture(Ice3));
-            break;
-        case 0:
-            _destroyed = true;
-
-    }
-    if(_health < -5 )
-    {
-        _destroyed = true;
-    }
-     */
+    _parent->switchToState(_nextState);
 }
